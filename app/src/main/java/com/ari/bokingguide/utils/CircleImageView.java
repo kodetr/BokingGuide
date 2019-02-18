@@ -27,7 +27,7 @@ import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 
-import com.azmi.surfingdandiving.R;
+import com.ari.bokingguide.R;
 
 
 public class CircleImageView extends ImageView {
