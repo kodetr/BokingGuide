@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.ari.bokingguide.utils.CircleImageView
+        android:id="@+id/ivPengguna"
+        android:layout_width="200sp"
+        android:layout_height="200dp"
+        android:src="@drawable/pengguna"
+        app:civ_border_color="@android:color/black"
+        app:civ_border_width="4dp" />
+
+    <com.ari.bokingguide.utils.CircleImageView
+        android:id="@+id/ivLogin"
+        android:layout_width="200sp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/lokasi"
+        app:civ_border_color="@android:color/black"
+        app:civ_border_width="4dp" />
+
+</LinearLayout>
