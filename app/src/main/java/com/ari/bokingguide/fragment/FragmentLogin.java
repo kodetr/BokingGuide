@@ -1,7 +1,10 @@
 package com.ari.bokingguide.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -12,10 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ari.bokingguide.MenuAdminActivity;
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.network.models.Login;
+import com.ari.bokingguide.utils.Constants;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,13 +40,13 @@ public class FragmentLogin extends Fragment {
     private ProgressDialog prgDialog;
 
     public FragmentLogin() {
+        DataProvider provider = new DataProvider();
+        nService = provider.getTService();
     }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-        DataProvider provider = new DataProvider();
-        nService = provider.getTService();
         prgDialog = new ProgressDialog(getContext());
         prgDialog.setMessage("Tunggu sebentar...!!!");
 
@@ -55,7 +60,6 @@ public class FragmentLogin extends Fragment {
                 actionLogin();
             }
         });
-
         return v;
     }
 
@@ -81,8 +85,13 @@ public class FragmentLogin extends Fragment {
                                      for (int i = 0; i < loginList.size(); i++) {
                                          mLogin = loginList.get(i);
                                          if (mLogin.getPesan().equalsIgnoreCase(getString(R.string.login_berhasil))) {
-//                                           startActivity(new Intent(getContext(), MenuTernak.class));
+                                             startActivity(new Intent(getContext(), MenuAdminActivity.class));
                                              Toast.makeText(getContext(), mLogin.getPesan(), Toast.LENGTH_SHORT).show();
+
+                                             SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                             SharedPreferences.Editor editor = sharedPreferences.edit();
+                                             editor.putBoolean(Constants.LOGGEDIN_ADMIN_SHARED_PREF, true);
+                                             editor.commit();
                                          } else {
                                              Toast.makeText(getContext(), mLogin.getPesan(), Toast.LENGTH_SHORT).show();
                                          }

@@ -18,6 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".MenuAdminActivity"/>
+
         <!--<activity-->
         <!--android:name=".MenuActivity"-->
         <!--android:label="@string/title_activity_menu"/>-->

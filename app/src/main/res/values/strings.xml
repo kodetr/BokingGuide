@@ -6,4 +6,8 @@
     <string name="login_berhasil">Login Berhasil</string>
     <string name="pesan_username">Masukan Username</string>
     <string name="pesan_password">Masukan Password</string>
+    <string name="title_wisatawan">Wisatawan</string>
+    <string name="title_guide">Guide</string>
+    <string name="action_pencarian">Pencarian</string>
+    <string name="action_logout">Logout</string>
 </resources>

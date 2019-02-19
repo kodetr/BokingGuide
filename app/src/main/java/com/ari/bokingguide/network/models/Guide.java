@@ -11,7 +11,8 @@ public class Guide {
     private String jk;
     private String foto;
     private String vidio;
-    private int rating;
+    private String rating;
+    private int jmh_rating;
     private int tag;
 
     public int getId() {
@@ -54,8 +55,12 @@ public class Guide {
         return vidio;
     }
 
-    public int getRating() {
+    public String getRating() {
         return rating;
+    }
+
+    public int getJmh_rating() {
+        return jmh_rating;
     }
 
     public int getTag() {

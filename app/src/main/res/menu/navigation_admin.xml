@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_wisatawan"
+        android:icon="@drawable/ic_wisatawan"
+        android:title="@string/title_wisatawan" />
+
+    <item
+        android:id="@+id/navigation_guide"
+        android:icon="@drawable/ic_guide"
+        android:title="@string/title_guide" />
+
+</menu>
