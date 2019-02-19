@@ -18,7 +18,7 @@ public interface DataService {
     @GET("view_wisatawan.php")
     Call<List<Wisatawan>> view_wisatawan();
 
-    @GET("guide.php")
+    @GET("view_guide.php")
     Call<List<Guide>> view_guide();
 
 

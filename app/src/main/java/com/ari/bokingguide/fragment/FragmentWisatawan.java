@@ -1,6 +1,5 @@
 package com.ari.bokingguide.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -8,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,7 +38,6 @@ public class FragmentWisatawan extends Fragment implements
     private Wisatawan wisatawan;
     private AdapterAdminWisatawan adapterAdminWisatawan;
     private List<Wisatawan> wisatawanList;
-    private ProgressDialog prgDialog;
     private RecyclerView mRecycleView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView mSearchView = null;
@@ -52,8 +51,6 @@ public class FragmentWisatawan extends Fragment implements
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment, container, false);
-        prgDialog = new ProgressDialog(getContext());
-        prgDialog.setMessage("Tunggu sebentar...!!!");
         mRecycleView = v.findViewById(R.id.recylerview);
         swipeRefreshLayout = v.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.white));
@@ -89,13 +86,13 @@ public class FragmentWisatawan extends Fragment implements
                                      wisatawan = wisatawanList.get(i);
                                      adapterAdminWisatawan.addWisatawan(wisatawan);
                                  }
+                                 swipeRefreshLayout.setRefreshing(false);
                              }
-                             swipeRefreshLayout.setRefreshing(false);
                          }
 
                          @Override
                          public void onFailure(@NotNull Call<List<Wisatawan>> call, @NotNull Throwable t) {
-                             prgDialog.dismiss();
+                             Log.e("HHHHHHH", t.getMessage());
                          }
                      }
         );

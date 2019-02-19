@@ -1,6 +1,5 @@
 package com.ari.bokingguide.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -39,7 +38,6 @@ public class FragmentGuide extends Fragment implements
     private Guide guide;
     private AdapterAdminGuide adapterAdminGuide;
     private List<Guide> guideList;
-    private ProgressDialog prgDialog;
     private RecyclerView mRecycleView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView mSearchView = null;
@@ -53,8 +51,6 @@ public class FragmentGuide extends Fragment implements
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment, container, false);
-        prgDialog = new ProgressDialog(getContext());
-        prgDialog.setMessage("Tunggu sebentar...!!!");
         mRecycleView = v.findViewById(R.id.recylerview);
         swipeRefreshLayout = v.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeColors(getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.white), getResources().getColor(android.R.color.white));
@@ -88,16 +84,14 @@ public class FragmentGuide extends Fragment implements
                                  for (int i = 0; i < guideList.size(); i++) {
                                      guide = guideList.get(i);
                                      adapterAdminGuide.addGuide(guide);
-
                                  }
+                                 swipeRefreshLayout.setRefreshing(false);
                              }
-                             swipeRefreshLayout.setRefreshing(false);
                          }
 
                          @Override
                          public void onFailure(@NotNull Call<List<Guide>> call, @NotNull Throwable t) {
-                             prgDialog.dismiss();
-                             Log.e("HHHHHHH",t.getMessage());
+                             Log.e("HHHHHHH", t.getMessage());
                          }
                      }
         );
