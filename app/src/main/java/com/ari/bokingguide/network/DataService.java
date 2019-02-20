@@ -51,6 +51,9 @@ public interface DataService {
             @Field("foto") String foto,
             @Field("vidio") String vidio);
 
+    @GET("delete_wisatawan.php")
+    Call<ResponseBody> delete_wisatawan(@Query("id") int id);
+
     @Multipart
     @POST("upload_foto_wisatawan.php")
     Call<Object> upload_foto_wisatawan(@Query("id") int id, @Field("foto") MultipartBody.Part foto);

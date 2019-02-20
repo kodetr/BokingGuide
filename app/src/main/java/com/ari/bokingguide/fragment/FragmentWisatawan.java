@@ -1,6 +1,7 @@
 package com.ari.bokingguide.fragment;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +50,7 @@ public class FragmentWisatawan extends Fragment implements
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView mSearchView = null;
     private MenuItem mSearchItem;
+    private ProgressDialog prgDialog;
 
     public FragmentWisatawan() {
         DataProvider provider = new DataProvider();
@@ -207,7 +210,7 @@ public class FragmentWisatawan extends Fragment implements
 
                         break;
                     case 2:
-                        delete();
+                        delete(selectedwisatawan.getId());
                         break;
                 }
             }
@@ -216,7 +219,27 @@ public class FragmentWisatawan extends Fragment implements
         builder.show();
     }
 
-    private void delete(){
+    private void delete(int id){
+        prgDialog = ProgressDialog.show(getContext(), "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog.show();
+        Call<ResponseBody> call = nService.delete_wisatawan(id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    prgDialog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.hapus_berhasil), Toast.LENGTH_LONG).show();
+                } else {
+                    prgDialog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.hapus_gagal), Toast.LENGTH_LONG).show();
+                }
+            }
 
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                prgDialog.dismiss();
+                Log.e("ERRR", t.getMessage());
+            }
+        });
     }
 }

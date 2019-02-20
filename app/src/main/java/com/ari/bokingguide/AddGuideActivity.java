@@ -114,7 +114,7 @@ public class AddGuideActivity extends AppCompatActivity {
         String jk = rbjk.getText().toString();
 
         String agama = spAgama.getSelectedItem().toString();
-        String foto = "default.png";
+        String foto = "default/default.png";
 
         prgDialog.show();
         Call<ResponseBody> call = nService.add_wisatawan(nama, umur, agama, bahasa, jk, kontak, foto);

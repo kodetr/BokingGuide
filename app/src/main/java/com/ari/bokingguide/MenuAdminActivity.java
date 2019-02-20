@@ -46,6 +46,7 @@ public class MenuAdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_admin);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Boking Guide Admin");
         setSupportActionBar(toolbar);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

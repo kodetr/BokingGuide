@@ -17,4 +17,6 @@
     <string name="pesan_kontak">Kontak belum diisi!</string>
     <string name="simpan_berhasil">Berhasil disimpan</string>
     <string name="simpan_gagal">Gagal disimpan</string>
+    <string name="hapus_berhasil">Berhasil dihapus</string>
+    <string name="hapus_gagal">Gagal dihapus</string>
 </resources>
