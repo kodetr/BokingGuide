@@ -182,6 +182,7 @@ public class FragmentGuide extends Fragment implements
     @Override
     public void onClick(int position) {
         selectGuide = adapterAdminGuide.getGuide(position);
+
     }
 }
 

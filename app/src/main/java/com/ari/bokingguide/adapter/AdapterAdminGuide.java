@@ -82,6 +82,7 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
             tvLokasi = itemView.findViewById(R.id.tvLokasi);
             rating = itemView.findViewById(R.id.rating);
             ivFoto = itemView.findViewById(R.id.ivFoto);
+            rating.setFocusable(false);
             itemView.setOnClickListener(this);
         }
 

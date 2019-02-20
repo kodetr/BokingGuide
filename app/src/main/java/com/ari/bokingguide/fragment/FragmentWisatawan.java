@@ -1,6 +1,10 @@
 package com.ari.bokingguide.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.ari.bokingguide.AddWisatawanActivity;
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.adapter.AdapterAdminWisatawan;
 import com.ari.bokingguide.network.DataProvider;
@@ -34,6 +39,7 @@ import retrofit2.Response;
 public class FragmentWisatawan extends Fragment implements
         AdapterAdminWisatawan.MClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    private String[] dialogitem = {"Ganti Foto", "Ubah", "Hapus"};
     private DataService nService;
     private Wisatawan wisatawan;
     private AdapterAdminWisatawan adapterAdminWisatawan;
@@ -65,6 +71,13 @@ public class FragmentWisatawan extends Fragment implements
                                 }
         );
 
+        FloatingActionButton btnAdd = v.findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), AddWisatawanActivity.class));
+            }
+        });
         return v;
     }
 
@@ -176,11 +189,34 @@ public class FragmentWisatawan extends Fragment implements
         return filteredModelList;
     }
 
-    //    Proses klik recycleview
+    // Proses klik recycleview
     private Wisatawan selectedwisatawan;
 
     @Override
     public void onClick(int position) {
         selectedwisatawan = adapterAdminWisatawan.getWisatawan(position);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
+        builder.setTitle("Pilihan");
+        builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+
+                        break;
+                    case 1:
+
+                        break;
+                    case 2:
+                        delete();
+                        break;
+                }
+            }
+        });
+
+        builder.show();
+    }
+
+    private void delete(){
+
     }
 }

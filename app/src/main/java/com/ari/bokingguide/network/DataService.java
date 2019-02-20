@@ -6,8 +6,14 @@ import com.ari.bokingguide.network.models.Wisatawan;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface DataService {
@@ -21,38 +27,32 @@ public interface DataService {
     @GET("view_guide.php")
     Call<List<Guide>> view_guide();
 
+    @FormUrlEncoded
+    @POST("add_wisatawan.php")
+    Call<ResponseBody> add_wisatawan(
+            @Field("nama") String nama,
+            @Field("umur") int umur,
+            @Field("agama") String agama,
+            @Field("bahasa") String bahasa,
+            @Field("jk") String jk,
+            @Field("kontak") String kontak,
+            @Field("foto") String foto);
 
-//    @GET("kelompok_ternak.php")
-//    Call<List<Kelompok>> getKelompok(@Query("jenis_ternak") String jenis_ternak);
-//
+    @FormUrlEncoded
+    @POST("add_guide.php")
+    Call<ResponseBody> add_guide(
+            @Field("nama") String nama,
+            @Field("umur") int umur,
+            @Field("agama") String agama,
+            @Field("bahasa") String bahasa,
+            @Field("kontak") String kontak,
+            @Field("lokasi") String lokasi,
+            @Field("jk") String jk,
+            @Field("foto") String foto,
+            @Field("vidio") String vidio);
 
-//    @FormUrlEncoded
-//    @POST("simpan_ternak_besar.php")
-//    Call<ResponseBody> SimpanTernakBesar(
-//            @Field("id_kelompok") int id_kelompok,
-//            @Field("anak_jantan") int anak_jantan,
-//            @Field("anak_betina") int anak_betina,
-//            @Field("muda_jantan") int muda_jantan,
-//            @Field("muda_betina") int muda_betina,
-//            @Field("dewasa_jantan") int dewasa_jantan,
-//            @Field("dewasa_betina") int dewasa_betina,
-//            @Field("jantan") int jantan,
-//            @Field("betina") int betina,
-//            @Field("jumlah") int jumlah);
-//
-//    @FormUrlEncoded
-//    @POST("simpan_ternak_sedang.php")
-//    Call<ResponseBody> SimpanTernakSedang(
-//            @Field("id_kelompok") int id_kelompok,
-//            @Field("jantan") int jantan,
-//            @Field("betina") int betina,
-//            @Field("jumlah") int jumlah);
-//
-//    @FormUrlEncoded
-//    @POST("simpan_ternak_kecil.php")
-//    Call<ResponseBody> SimpanTernakKecil(@Field("id_kelompok") int id_kelompok, @Field("jumlah") int jumlah);
-//
-//    @GET("grafik_pertahun.php")
-//    Call<List<Ternak>> GrafikPertahun();
+    @Multipart
+    @POST("upload_foto_wisatawan.php")
+    Call<Object> upload_foto_wisatawan(@Query("id") int id, @Field("foto") MultipartBody.Part foto);
 
 }

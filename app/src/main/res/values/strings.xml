@@ -10,4 +10,11 @@
     <string name="title_guide">Guide</string>
     <string name="action_pencarian">Pencarian</string>
     <string name="action_logout">Logout</string>
+    <string name="simpan">SIMPAN</string>
+    <string name="pesan_nama">Nama belum diisi!</string>
+    <string name="pesan_umur">Umur belum diisi!</string>
+    <string name="pesan_bahasa">Bahasa belum diisi!</string>
+    <string name="pesan_kontak">Kontak belum diisi!</string>
+    <string name="simpan_berhasil">Berhasil disimpan</string>
+    <string name="simpan_gagal">Gagal disimpan</string>
 </resources>
