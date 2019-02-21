@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.ari.bokingguide.AddWisatawanActivity;
 import com.ari.bokingguide.R;
+import com.ari.bokingguide.UploadWisatawanActivity;
 import com.ari.bokingguide.adapter.AdapterAdminWisatawan;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
@@ -78,7 +79,9 @@ public class FragmentWisatawan extends Fragment implements
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), AddWisatawanActivity.class));
+                Intent itag = new Intent(getContext(), AddWisatawanActivity.class);
+                itag.putExtra("tag", false);
+                startActivity(itag);
             }
         });
         return v;
@@ -198,16 +201,25 @@ public class FragmentWisatawan extends Fragment implements
     @Override
     public void onClick(int position) {
         selectedwisatawan = adapterAdminWisatawan.getWisatawan(position);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
         builder.setTitle("Pilihan");
         builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 switch (item) {
                     case 0:
-
+                        Intent ifoto = new Intent(getContext(), UploadWisatawanActivity.class);
+                        ifoto.putExtra("id", selectedwisatawan.getId());
+                        startActivity(ifoto);
                         break;
                     case 1:
-
+                        Intent iupdate = new Intent(getContext(), AddWisatawanActivity.class);
+                        iupdate.putExtra("id", selectedwisatawan.getId());
+                        iupdate.putExtra("nama", selectedwisatawan.getNama());
+                        iupdate.putExtra("umur", selectedwisatawan.getUmur());
+                        iupdate.putExtra("bahasa", selectedwisatawan.getBahasa());
+                        iupdate.putExtra("kontak", selectedwisatawan.getKontak());
+                        iupdate.putExtra("tag", true);
+                        startActivity(iupdate);
                         break;
                     case 2:
                         delete(selectedwisatawan.getId());
@@ -219,7 +231,7 @@ public class FragmentWisatawan extends Fragment implements
         builder.show();
     }
 
-    private void delete(int id){
+    private void delete(int id) {
         prgDialog = ProgressDialog.show(getContext(), "Proses Data", "Tunggu sebentar..!", false, false);
         prgDialog.show();
         Call<ResponseBody> call = nService.delete_wisatawan(id);

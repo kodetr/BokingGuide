@@ -19,4 +19,6 @@
     <string name="simpan_gagal">Gagal disimpan</string>
     <string name="hapus_berhasil">Berhasil dihapus</string>
     <string name="hapus_gagal">Gagal dihapus</string>
+    <string name="ubah_berhasil">Berhasil diubah</string>
+    <string name="ubah_gagal">Gagal diubah</string>
 </resources>

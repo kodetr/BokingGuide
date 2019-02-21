@@ -36,7 +36,27 @@ public interface DataService {
             @Field("bahasa") String bahasa,
             @Field("jk") String jk,
             @Field("kontak") String kontak,
-            @Field("foto") String foto);
+            @Field("foto") String foto
+    );
+
+    @FormUrlEncoded
+    @POST("update_wisatawan.php")
+    Call<ResponseBody> update_wisatawan(
+            @Query("id") int id,
+            @Field("nama") String nama,
+            @Field("umur") int umur,
+            @Field("agama") String agama,
+            @Field("bahasa") String bahasa,
+            @Field("jk") String jk,
+            @Field("kontak") String kontak
+    );
+
+    @GET("delete_wisatawan.php")
+    Call<ResponseBody> delete_wisatawan(@Query("id") int id);
+
+    @Multipart
+    @POST("upload_foto_wisatawan.php")
+    Call<Object> upload_foto_wisatawan(@Query("id") int id, @Field("foto") MultipartBody.Part foto);
 
     @FormUrlEncoded
     @POST("add_guide.php")
@@ -49,13 +69,21 @@ public interface DataService {
             @Field("lokasi") String lokasi,
             @Field("jk") String jk,
             @Field("foto") String foto,
-            @Field("vidio") String vidio);
+            @Field("vidio") String vidio
+    );
 
-    @GET("delete_wisatawan.php")
-    Call<ResponseBody> delete_wisatawan(@Query("id") int id);
+    @FormUrlEncoded
+    @POST("update_guide.php")
+    Call<ResponseBody> update_guide(
+            @Query("id") int id,
+            @Field("nama") String nama,
+            @Field("umur") int umur,
+            @Field("agama") String agama,
+            @Field("bahasa") String bahasa,
+            @Field("kontak") String kontak,
+            @Field("lokasi") String lokasi,
+            @Field("jk") String jk
+    );
 
-    @Multipart
-    @POST("upload_foto_wisatawan.php")
-    Call<Object> upload_foto_wisatawan(@Query("id") int id, @Field("foto") MultipartBody.Part foto);
 
 }

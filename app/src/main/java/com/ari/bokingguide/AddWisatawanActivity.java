@@ -37,6 +37,7 @@ public class AddWisatawanActivity extends AppCompatActivity {
 
     private DataService nService;
     private ProgressDialog prgDialog;
+    private int tagBtn = 0;
 
     public AddWisatawanActivity() {
         DataProvider provider = new DataProvider();
@@ -53,6 +54,16 @@ public class AddWisatawanActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
+
+        if (getIntent().getBooleanExtra("tag", true)) {
+            etNama.setText(getIntent().getStringExtra("nama"));
+            etUmur.setText(String.valueOf(getIntent().getIntExtra("umur", 0)));
+            etBahasa.setText(getIntent().getStringExtra("bahasa"));
+            etKontak.setText(getIntent().getStringExtra("kontak"));
+            tagBtn = 1;
+        } else {
+            tagBtn = 0;
+        }
     }
 
     private void init() {
@@ -65,12 +76,6 @@ public class AddWisatawanActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, data_agama);
         spAgama.setAdapter(arrayAdapter);
         ivFoto = findViewById(R.id.ivFoto);
-        ivFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         Button btnSimpan = findViewById(R.id.btnSimpan);
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +101,11 @@ public class AddWisatawanActivity extends AppCompatActivity {
                 etKontak.setError(getString(R.string.pesan_kontak));
             }
         } else {
-            btnSimpan();
+            if (tagBtn == 0) {
+                btnSimpan();
+            } else {
+                btnUpdate();
+            }
         }
 
     }
@@ -127,6 +136,42 @@ public class AddWisatawanActivity extends AppCompatActivity {
                 } else {
                     prgDialog.dismiss();
                     Toast.makeText(AddWisatawanActivity.this, getString(R.string.simpan_gagal), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                prgDialog.dismiss();
+                Log.e("ERRR", t.getMessage());
+            }
+        });
+    }
+
+    private void btnUpdate() {
+        prgDialog = ProgressDialog.show(AddWisatawanActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+
+        String nama = etNama.getText().toString();
+        int umur = Integer.valueOf(etUmur.getText().toString());
+        String bahasa = etBahasa.getText().toString();
+        String kontak = etKontak.getText().toString();
+
+        int id = rgKelamin.getCheckedRadioButtonId();
+        RadioButton rbjk = findViewById(id);
+        String jk = rbjk.getText().toString();
+
+        String agama = spAgama.getSelectedItem().toString();
+
+        prgDialog.show();
+        Call<ResponseBody> call = nService.update_wisatawan(getIntent().getIntExtra("id", 0), nama, umur, agama, bahasa, jk, kontak);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    prgDialog.dismiss();
+                    Toast.makeText(AddWisatawanActivity.this, getString(R.string.ubah_berhasil), Toast.LENGTH_LONG).show();
+                } else {
+                    prgDialog.dismiss();
+                    Toast.makeText(AddWisatawanActivity.this, getString(R.string.ubah_gagal), Toast.LENGTH_LONG).show();
                 }
             }
 
