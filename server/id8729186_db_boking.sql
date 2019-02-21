@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 19, 2019 at 06:27 AM
+-- Generation Time: Feb 21, 2019 at 03:29 AM
 -- Server version: 10.3.12-MariaDB
 -- PHP Version: 7.0.26
 
@@ -49,8 +49,8 @@ CREATE TABLE `tbl_guide` (
 --
 
 INSERT INTO `tbl_guide` (`id`, `nama`, `umur`, `agama`, `bahasa`, `kontak`, `lokasi`, `jk`, `foto`, `vidio`, `rating`, `jmh_rating`, `tag`) VALUES
-(1, 'heru', 21, 'islam', 'indonesia', 87237238, 'mataram', 'perempuan', 'default.png', 'helo.png', '4', 2, 0),
-(2, 'heru', 21, 'islam', 'indonesia', 87237238, 'mataram', 'perempuan', 'default.png', 'helo.png', '3', 1, 0);
+(1, 'heru', 21, 'islam', 'indonesia', 87237238, 'mataram', 'perempuan', 'default/default.png', 'helo.png', '4', 2, 0),
+(2, 'heru', 21, 'islam', 'indonesia', 87237238, 'mataram', 'perempuan', 'default/default.png', 'helo.png', '3', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -74,8 +74,9 @@ CREATE TABLE `tbl_wisatawan` (
 --
 
 INSERT INTO `tbl_wisatawan` (`id`, `nama`, `umur`, `agama`, `bahasa`, `jk`, `kontak`, `foto`) VALUES
-(1, 'tanwir', 21, 'islam', 'indonesia', 'Laki-Laki', '087765449987', 'default.png'),
-(9, 'julainto', 45, 'Islam', 'indonesia', 'Perempuan', '081345678097', 'default.png');
+(1, 'Tanwir', 21, 'islam', 'indonesia', 'laki-laki', '08534', '1.jpg'),
+(9, 'julainto', 45, 'Islam', 'indonesia', 'Perempuan', '081345678097', 'default/default.png'),
+(11, 'uki wijaya sari', 12, 'Hindu', 'indonesiaa', 'Wanita', '08256555552', 'default/default.png');
 
 -- --------------------------------------------------------
 
@@ -132,7 +133,7 @@ ALTER TABLE `tbl_guide`
 -- AUTO_INCREMENT for table `tbl_wisatawan`
 --
 ALTER TABLE `tbl_wisatawan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
