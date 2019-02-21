@@ -27,6 +27,7 @@ import java.io.File;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -95,11 +96,11 @@ public class UploadWisatawanActivity extends AppCompatActivity {
         // MultipartBody.Part is used to send also the actual file name
         MultipartBody.Part photo = MultipartBody.Part.createFormData("upload_file", file.getName(), requestFile);
 
-        Call<Object> call = nService.upload_foto_wisatawan(getIntent().getIntExtra("id", 0), photo);
+        Call<ResponseBody> call = nService.upload_foto_wisatawan(getIntent().getIntExtra("id", 0), photo);
         // finally, execute the request
-        call.enqueue(new Callback<Object>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NotNull Call<Object> call, @NotNull Response<Object> response) {
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 prgDialog.dismiss();
                 if (response.isSuccessful()) {
                     Toast.makeText(UploadWisatawanActivity.this, "Berhasil diubah", Toast.LENGTH_SHORT).show();
@@ -109,7 +110,7 @@ public class UploadWisatawanActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(@NotNull Call<Object> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 prgDialog.dismiss();
                 Log.e("Error",t.getMessage());
             }
