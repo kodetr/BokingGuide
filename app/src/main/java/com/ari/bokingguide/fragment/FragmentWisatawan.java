@@ -241,6 +241,7 @@ public class FragmentWisatawan extends Fragment implements
                 if (response.isSuccessful()) {
                     prgDialog.dismiss();
                     Toast.makeText(getContext(), getString(R.string.hapus_berhasil), Toast.LENGTH_LONG).show();
+                    showData();
                 } else {
                     prgDialog.dismiss();
                     Toast.makeText(getContext(), getString(R.string.hapus_gagal), Toast.LENGTH_LONG).show();

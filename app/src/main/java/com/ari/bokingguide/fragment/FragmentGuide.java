@@ -1,6 +1,11 @@
 package com.ari.bokingguide.fragment;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,7 +21,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.ari.bokingguide.AddGuideActivity;
+import com.ari.bokingguide.AddWisatawanActivity;
 import com.ari.bokingguide.R;
+import com.ari.bokingguide.UploadGuideActivity;
 import com.ari.bokingguide.adapter.AdapterAdminGuide;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
@@ -27,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +43,7 @@ import retrofit2.Response;
 public class FragmentGuide extends Fragment implements
         AdapterAdminGuide.MClickListener, SwipeRefreshLayout.OnRefreshListener {
 
+    private String[] dialogitem = {"Ganti Foto", "Ubah", "Hapus"};
     private DataService nService;
     private Guide guide;
     private AdapterAdminGuide adapterAdminGuide;
@@ -42,6 +52,7 @@ public class FragmentGuide extends Fragment implements
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView mSearchView = null;
     private MenuItem mSearchItem;
+    private ProgressDialog prgDialog;
 
     public FragmentGuide() {
         DataProvider provider = new DataProvider();
@@ -64,6 +75,15 @@ public class FragmentGuide extends Fragment implements
                                     }
                                 }
         );
+        FloatingActionButton btnAdd = v.findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itag = new Intent(getContext(), AddGuideActivity.class);
+                itag.putExtra("tag", false);
+                startActivity(itag);
+            }
+        });
         return v;
     }
 
@@ -182,7 +202,60 @@ public class FragmentGuide extends Fragment implements
     @Override
     public void onClick(int position) {
         selectGuide = adapterAdminGuide.getGuide(position);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
+        builder.setTitle("Pilihan");
+        builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
+                    case 0:
+                        Intent ifoto = new Intent(getContext(), UploadGuideActivity.class);
+                        ifoto.putExtra("id", selectGuide.getId());
+                        startActivity(ifoto);
+                        break;
+                    case 1:
+                        Intent iupdate = new Intent(getContext(), AddGuideActivity.class);
+                        iupdate.putExtra("id", selectGuide.getId());
+                        iupdate.putExtra("nama", selectGuide.getNama());
+                        iupdate.putExtra("umur", selectGuide.getUmur());
+                        iupdate.putExtra("bahasa", selectGuide.getBahasa());
+                        iupdate.putExtra("kontak", selectGuide.getKontak());
+                        iupdate.putExtra("lokasi", selectGuide.getLokasi());
+                        iupdate.putExtra("tag", true);
+                        startActivity(iupdate);
+                        break;
+                    case 2:
+                        delete(selectGuide.getId());
+                        break;
+                }
+            }
+        });
 
+        builder.show();
+    }
+
+    private void delete(int id) {
+        prgDialog = ProgressDialog.show(getContext(), "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog.show();
+        Call<ResponseBody> call = nService.delete_guide(id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    prgDialog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.hapus_berhasil), Toast.LENGTH_LONG).show();
+                    showData();
+                } else {
+                    prgDialog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.hapus_gagal), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                prgDialog.dismiss();
+                Log.e("ERRR", t.getMessage());
+            }
+        });
     }
 }
 

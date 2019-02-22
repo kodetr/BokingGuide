@@ -33,7 +33,6 @@ public class AddWisatawanActivity extends AppCompatActivity {
     private EditText etNama, etUmur, etBahasa, etKontak;
     private Spinner spAgama;
     private RadioGroup rgKelamin;
-    private CircleImageView ivFoto;
 
     private DataService nService;
     private ProgressDialog prgDialog;
@@ -75,7 +74,6 @@ public class AddWisatawanActivity extends AppCompatActivity {
         spAgama = findViewById(R.id.spAgama);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, data_agama);
         spAgama.setAdapter(arrayAdapter);
-        ivFoto = findViewById(R.id.ivFoto);
         Button btnSimpan = findViewById(R.id.btnSimpan);
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override

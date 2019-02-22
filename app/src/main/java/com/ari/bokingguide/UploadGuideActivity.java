@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UploadWisatawanActivity extends AppCompatActivity {
+public class UploadGuideActivity extends AppCompatActivity {
 
     private CircleImageView ivFoto;
     private DataService nService;
@@ -39,7 +39,7 @@ public class UploadWisatawanActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST = 1;
     private Uri fotoURI;
 
-    public UploadWisatawanActivity() {
+    public UploadGuideActivity() {
         DataProvider provider = new DataProvider();
         nService = provider.getTService();
     }
@@ -49,7 +49,7 @@ public class UploadWisatawanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_foto);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Ganti Foto Wisatawan");
+        toolbar.setTitle("Ganti Foto Guide");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -85,7 +85,7 @@ public class UploadWisatawanActivity extends AppCompatActivity {
     }
 
     private void uploadFoto() {
-        prgDialog = ProgressDialog.show(UploadWisatawanActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = ProgressDialog.show(UploadGuideActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
         prgDialog.show();
 
         File file = FileUtils.getFile(this, fotoURI);
@@ -95,16 +95,16 @@ public class UploadWisatawanActivity extends AppCompatActivity {
         // MultipartBody.Part is used to send also the actual file name
         MultipartBody.Part photo = MultipartBody.Part.createFormData("upload_file", file.getName(), requestFile);
 
-        Call<ResponseBody> call = nService.upload_foto_wisatawan(getIntent().getIntExtra("id", 0), photo);
+        Call<ResponseBody> call = nService.upload_foto_guide(getIntent().getIntExtra("id", 0), photo);
         // finally, execute the request
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 prgDialog.dismiss();
                 if (response.isSuccessful()) {
-                    Toast.makeText(UploadWisatawanActivity.this, "Berhasil diubah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadGuideActivity.this, "Berhasil diubah", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(UploadWisatawanActivity.this, "Gagal diubah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadGuideActivity.this, "Gagal diubah", Toast.LENGTH_SHORT).show();
                 }
             }
 

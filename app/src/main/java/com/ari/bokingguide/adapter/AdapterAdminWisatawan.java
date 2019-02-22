@@ -10,6 +10,8 @@ import com.ari.bokingguide.R;
 import com.ari.bokingguide.network.models.Wisatawan;
 import com.ari.bokingguide.utils.CircleImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,6 +51,9 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
         holder.tvKontak.setText(getWisatawan.getKontak());
         Glide.with(holder.itemView.getContext())
                 .load(getWisatawan.getFoto())
+                .apply(new RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
                 .into(holder.ivFoto);
     }
 

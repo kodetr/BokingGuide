@@ -73,8 +73,7 @@ public interface DataService {
             @Field("kontak") String kontak,
             @Field("lokasi") String lokasi,
             @Field("jk") String jk,
-            @Field("foto") String foto,
-            @Field("vidio") String vidio
+            @Field("foto") String foto
     );
 
     @FormUrlEncoded
@@ -90,5 +89,11 @@ public interface DataService {
             @Field("jk") String jk
     );
 
+    @GET("delete_guide.php")
+    Call<ResponseBody> delete_guide(@Query("id") int id);
+
+    @Multipart
+    @POST("upload_foto_guide.php")
+    Call<ResponseBody> upload_foto_guide(@Query("id") int id, @Part MultipartBody.Part foto);
 
 }

@@ -28,9 +28,12 @@
         <activity
             android:name=".AddGuideActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".UploadWisatawanActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".UploadGuideActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- <activity -->

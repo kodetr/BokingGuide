@@ -13,6 +13,8 @@ import com.ari.bokingguide.network.models.Guide;
 import com.ari.bokingguide.network.models.Wisatawan;
 import com.ari.bokingguide.utils.CircleImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,6 +55,9 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
         holder.rating.setRating(Integer.valueOf(getGuide.getRating()));
         Glide.with(holder.itemView.getContext())
                 .load(getGuide.getFoto())
+                .apply(new RequestOptions()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
                 .into(holder.ivFoto);
     }
 

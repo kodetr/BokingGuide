@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
-import com.ari.bokingguide.utils.CircleImageView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -30,13 +29,13 @@ import retrofit2.Response;
 public class AddGuideActivity extends AppCompatActivity {
 
     private String[] data_agama = {"Islam", "Hindu", "Kristen", "Katolik", "Ateisme"};
-    private EditText etNama, etUmur, etBahasa, etKontak;
+    private EditText etNama, etUmur, etBahasa, etKontak, etLokasi;
     private Spinner spAgama;
     private RadioGroup rgKelamin;
-    private CircleImageView ivFoto;
 
     private DataService nService;
     private ProgressDialog prgDialog;
+    private int tagBtn = 0;
 
     public AddGuideActivity() {
         DataProvider provider = new DataProvider();
@@ -46,13 +45,24 @@ public class AddGuideActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_wisatawan);
+        setContentView(R.layout.activity_add_guide);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Tambah Wisatawan");
+        toolbar.setTitle("Tambah Guide");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         init();
+
+        if (getIntent().getBooleanExtra("tag", true)) {
+            etNama.setText(getIntent().getStringExtra("nama"));
+            etUmur.setText(String.valueOf(getIntent().getIntExtra("umur", 0)));
+            etBahasa.setText(getIntent().getStringExtra("bahasa"));
+            etKontak.setText(getIntent().getStringExtra("kontak"));
+            etLokasi.setText(getIntent().getStringExtra("lokasi"));
+            tagBtn = 1;
+        } else {
+            tagBtn = 0;
+        }
     }
 
     private void init() {
@@ -62,15 +72,9 @@ public class AddGuideActivity extends AppCompatActivity {
         etKontak = findViewById(R.id.etKontak);
         rgKelamin = findViewById(R.id.rgKelamin);
         spAgama = findViewById(R.id.spAgama);
+        etLokasi = findViewById(R.id.etLokasi);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, data_agama);
         spAgama.setAdapter(arrayAdapter);
-        ivFoto = findViewById(R.id.ivFoto);
-        ivFoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         Button btnSimpan = findViewById(R.id.btnSimpan);
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +86,9 @@ public class AddGuideActivity extends AppCompatActivity {
 
     private void validasiBtnSimpan() {
         if (TextUtils.isEmpty(etNama.getText().toString()) || TextUtils.isEmpty(etUmur.getText().toString())
-                || TextUtils.isEmpty(etBahasa.getText().toString()) || TextUtils.isEmpty(etKontak.getText().toString())) {
+                || TextUtils.isEmpty(etBahasa.getText().toString()) || TextUtils.isEmpty(etKontak.getText().toString())
+                || TextUtils.isEmpty(etLokasi.getText().toString())) {
+
             if (TextUtils.isEmpty(etNama.getText().toString())) {
                 etNama.setError(getString(R.string.pesan_nama));
             }
@@ -95,8 +101,15 @@ public class AddGuideActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(etKontak.getText().toString())) {
                 etKontak.setError(getString(R.string.pesan_kontak));
             }
+            if (TextUtils.isEmpty(etLokasi.getText().toString())) {
+                etLokasi.setError(getString(R.string.pesan_lokasi));
+            }
         } else {
-            btnSimpan();
+            if (tagBtn == 0) {
+                btnSimpan();
+            } else {
+                btnUpdate();
+            }
         }
 
     }
@@ -108,6 +121,7 @@ public class AddGuideActivity extends AppCompatActivity {
         int umur = Integer.valueOf(etUmur.getText().toString());
         String bahasa = etBahasa.getText().toString();
         String kontak = etKontak.getText().toString();
+        String lokasi = etLokasi.getText().toString();
 
         int id = rgKelamin.getCheckedRadioButtonId();
         RadioButton rbjk = findViewById(id);
@@ -117,7 +131,7 @@ public class AddGuideActivity extends AppCompatActivity {
         String foto = "default/default.png";
 
         prgDialog.show();
-        Call<ResponseBody> call = nService.add_wisatawan(nama, umur, agama, bahasa, jk, kontak, foto);
+        Call<ResponseBody> call = nService.add_guide(nama, umur, agama, bahasa, kontak, lokasi, jk, foto);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
@@ -127,6 +141,43 @@ public class AddGuideActivity extends AppCompatActivity {
                 } else {
                     prgDialog.dismiss();
                     Toast.makeText(AddGuideActivity.this, getString(R.string.simpan_gagal), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                prgDialog.dismiss();
+                Log.e("ERRR", t.getMessage());
+            }
+        });
+    }
+
+    private void btnUpdate() {
+        prgDialog = ProgressDialog.show(AddGuideActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+
+        String nama = etNama.getText().toString();
+        int umur = Integer.valueOf(etUmur.getText().toString());
+        String bahasa = etBahasa.getText().toString();
+        String kontak = etKontak.getText().toString();
+        String lokasi = etLokasi.getText().toString();
+
+        int id = rgKelamin.getCheckedRadioButtonId();
+        RadioButton rbjk = findViewById(id);
+        String jk = rbjk.getText().toString();
+
+        String agama = spAgama.getSelectedItem().toString();
+
+        prgDialog.show();
+        Call<ResponseBody> call = nService.update_guide(getIntent().getIntExtra("id", 0), nama, umur, agama, bahasa, kontak, lokasi, jk);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    prgDialog.dismiss();
+                    Toast.makeText(AddGuideActivity.this, getString(R.string.ubah_berhasil), Toast.LENGTH_LONG).show();
+                } else {
+                    prgDialog.dismiss();
+                    Toast.makeText(AddGuideActivity.this, getString(R.string.ubah_gagal), Toast.LENGTH_LONG).show();
                 }
             }
 
