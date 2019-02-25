@@ -1,10 +1,11 @@
 package com.ari.bokingguide;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.ari.bokingguide.fragment.FragmentGuide;
 import com.ari.bokingguide.fragment.FragmentWisatawan;
@@ -86,12 +86,29 @@ public class MenuAdminActivity extends AppCompatActivity {
     }
 
     private void Keluar() {
-        SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(Constants.LOGGEDIN_ADMIN_SHARED_PREF, false);
-        editor.commit();
-        Intent intent = new Intent(MenuAdminActivity.this, MenuActivity.class);
-        startActivity(intent);
+        AlertDialog.Builder b = new AlertDialog.Builder(this)
+                .setTitle("Yakin ingin keluar!")
+                .setPositiveButton("Keluar",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                SharedPreferences preferences = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean(Constants.LOGGEDIN_ADMIN_SHARED_PREF, false);
+                                editor.commit();
+                                Intent intent = new Intent(MenuAdminActivity.this, MenuActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                )
+                .setNegativeButton("Batal",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                            }
+                        }
+                );
+        b.show();
     }
 
 
