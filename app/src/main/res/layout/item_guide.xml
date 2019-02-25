@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="210dp"
         android:background="@drawable/list_selector">
 
         <com.ari.bokingguide.utils.CircleImageView
@@ -23,9 +23,9 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginLeft="70dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center">
 
@@ -33,9 +33,9 @@
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:numStars="5"
                     android:clickable="false"
                     android:isIndicator="true"
+                    android:numStars="5"
                     android:stepSize="0.1" />
             </LinearLayout>
 

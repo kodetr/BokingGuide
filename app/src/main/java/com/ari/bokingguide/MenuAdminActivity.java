@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -13,10 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ari.bokingguide.fragment.FragmentGuide;
 import com.ari.bokingguide.fragment.FragmentWisatawan;
 import com.ari.bokingguide.utils.Constants;
+
+import org.salient.artplayer.MediaPlayerManager;
 
 public class MenuAdminActivity extends AppCompatActivity {
 
@@ -77,7 +81,6 @@ public class MenuAdminActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             Keluar();
-            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -89,5 +92,18 @@ public class MenuAdminActivity extends AppCompatActivity {
         editor.commit();
         Intent intent = new Intent(MenuAdminActivity.this, MenuActivity.class);
         startActivity(intent);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MediaPlayerManager.instance().pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MediaPlayerManager.instance().releasePlayerAndView(this);
     }
 }

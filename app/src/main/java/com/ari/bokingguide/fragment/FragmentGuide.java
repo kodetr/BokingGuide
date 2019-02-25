@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -19,18 +20,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ari.bokingguide.AddGuideActivity;
 import com.ari.bokingguide.AddWisatawanActivity;
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.UploadGuideActivity;
+import com.ari.bokingguide.UploadVidioGuideActivity;
 import com.ari.bokingguide.adapter.AdapterAdminGuide;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.network.models.Guide;
 
 import org.jetbrains.annotations.NotNull;
+import org.salient.artplayer.VideoView;
+import org.salient.artplayer.ui.ControlPanel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +48,7 @@ import retrofit2.Response;
 public class FragmentGuide extends Fragment implements
         AdapterAdminGuide.MClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private String[] dialogitem = {"Ganti Foto", "Ubah", "Hapus"};
+    private String[] dialogitem = {"Ganti Foto","Tambah Vidio", "Lihat Vidio", "Ubah", "Hapus"};
     private DataService nService;
     private Guide guide;
     private AdapterAdminGuide adapterAdminGuide;
@@ -213,6 +218,18 @@ public class FragmentGuide extends Fragment implements
                         startActivity(ifoto);
                         break;
                     case 1:
+                        Intent ividio = new Intent(getContext(), UploadVidioGuideActivity.class);
+                        ividio.putExtra("id", selectGuide.getId());
+                        startActivity(ividio);
+                        break;
+                    case 2:
+                        VideoView videoView = new VideoView(getContext());
+                        videoView.setUp(selectGuide.getVidio());
+                        videoView.setControlPanel(new ControlPanel(getContext()));
+                        videoView.start();
+                        videoView.startFullscreen(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                        break;
+                    case 3:
                         Intent iupdate = new Intent(getContext(), AddGuideActivity.class);
                         iupdate.putExtra("id", selectGuide.getId());
                         iupdate.putExtra("nama", selectGuide.getNama());
@@ -223,7 +240,7 @@ public class FragmentGuide extends Fragment implements
                         iupdate.putExtra("tag", true);
                         startActivity(iupdate);
                         break;
-                    case 2:
+                    case 4:
                         delete(selectGuide.getId());
                         break;
                 }

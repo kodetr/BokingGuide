@@ -96,4 +96,8 @@ public interface DataService {
     @POST("upload_foto_guide.php")
     Call<ResponseBody> upload_foto_guide(@Query("id") int id, @Part MultipartBody.Part foto);
 
+    @Multipart
+    @POST("upload_vidio.php")
+    Call<ResponseBody> upload_vidio(@Query("id") int id, @Part MultipartBody.Part foto);
+
 }

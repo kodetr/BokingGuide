@@ -1,16 +1,17 @@
 package com.ari.bokingguide.adapter;
 
+import android.app.Activity;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.network.models.Guide;
-import com.ari.bokingguide.network.models.Wisatawan;
 import com.ari.bokingguide.utils.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ari.bokingguide">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +22,8 @@
         </activity>
         <activity
             android:name=".MenuAdminActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:configChanges="orientation|screenSize|keyboardHidden"/>
         <activity
             android:name=".AddWisatawanActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -31,9 +33,11 @@
         <activity
             android:name=".UploadWisatawanActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".UploadGuideActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UploadVidioGuideActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- <activity -->
