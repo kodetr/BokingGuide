@@ -9,6 +9,7 @@ public class Wisatawan {
     private String jk;
     private String kontak;
     private String foto;
+    private String pesan;
 
     public int getId() {
         return id;
@@ -40,5 +41,9 @@ public class Wisatawan {
 
     public String getFoto() {
         return foto;
+    }
+
+    public String getPesan() {
+        return pesan;
     }
 }

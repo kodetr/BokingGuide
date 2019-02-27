@@ -2,6 +2,7 @@ package com.ari.bokingguide.network;
 
 import android.database.Observable;
 
+import com.ari.bokingguide.network.models.Destinasi;
 import com.ari.bokingguide.network.models.Guide;
 import com.ari.bokingguide.network.models.Login;
 import com.ari.bokingguide.network.models.Wisatawan;
@@ -99,5 +100,41 @@ public interface DataService {
     @Multipart
     @POST("upload_vidio.php")
     Call<ResponseBody> upload_vidio(@Query("id") int id, @Part MultipartBody.Part foto);
+
+
+    @GET("view_destinasi.php")
+    Call<List<Destinasi>> view_destinansi(@Query("jenis") String jenis);
+
+    @FormUrlEncoded
+    @POST("add_destinasi.php")
+    Call<ResponseBody> add_destinasi(
+            @Field("nama") String nama,
+            @Field("jenis") String jenis,
+            @Field("lokasi") String lokasi,
+            @Field("keterangan") String keterangan,
+            @Field("foto") String foto
+    );
+
+    @FormUrlEncoded
+    @POST("update_destinasi.php")
+    Call<ResponseBody> update_destinasi(
+            @Query("id") int id,
+            @Field("nama") String nama,
+            @Field("jenis") String jenis,
+            @Field("lokasi") String lokasi,
+            @Field("keterangan") String keterangan
+    );
+
+
+    @GET("delete_destinasi.php")
+    Call<ResponseBody> delete_destinasi(@Query("id") int id);
+
+    @Multipart
+    @POST("upload_foto_destinasi.php")
+    Call<ResponseBody> upload_foto_destinasi(@Query("id") int id, @Part MultipartBody.Part foto);
+
+    @Multipart
+    @POST("upload_vidio_destinasi.php")
+    Call<ResponseBody> upload_vidio_destinasi(@Query("id") int id, @Part MultipartBody.Part foto);
 
 }

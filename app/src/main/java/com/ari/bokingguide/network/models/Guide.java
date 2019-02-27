@@ -14,6 +14,7 @@ public class Guide {
     private String rating;
     private int jmh_rating;
     private int tag;
+    private String pesan;
 
     public int getId() {
         return id;
@@ -65,5 +66,9 @@ public class Guide {
 
     public int getTag() {
         return tag;
+    }
+
+    public String getPesan() {
+        return pesan;
     }
 }

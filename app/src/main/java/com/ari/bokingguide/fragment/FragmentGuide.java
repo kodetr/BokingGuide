@@ -20,11 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ari.bokingguide.AddGuideActivity;
-import com.ari.bokingguide.AddWisatawanActivity;
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.UploadGuideActivity;
 import com.ari.bokingguide.UploadVidioGuideActivity;
@@ -32,6 +30,7 @@ import com.ari.bokingguide.adapter.AdapterAdminGuide;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.network.models.Guide;
+import com.ari.bokingguide.utils.InternetConnection;
 
 import org.jetbrains.annotations.NotNull;
 import org.salient.artplayer.VideoView;
@@ -48,7 +47,7 @@ import retrofit2.Response;
 public class FragmentGuide extends Fragment implements
         AdapterAdminGuide.MClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private String[] dialogitem = {"Ganti Foto","Tambah Vidio", "Lihat Vidio", "Ubah", "Hapus"};
+    private String[] dialogitem = {"Ganti Foto", "Tambah Vidio", "Lihat Vidio", "Ubah", "Hapus"};
     private DataService nService;
     private Guide guide;
     private AdapterAdminGuide adapterAdminGuide;
@@ -99,27 +98,31 @@ public class FragmentGuide extends Fragment implements
 
     private void showData() {
         swipeRefreshLayout.setRefreshing(true);
-        configRecycleView();
-        Call<List<Guide>> call = nService.view_guide();
-        call.enqueue(new Callback<List<Guide>>() {
-                         @Override
-                         public void onResponse(@NotNull Call<List<Guide>> call, @NotNull Response<List<Guide>> response) {
-                             if (response.isSuccessful()) {
-                                 guideList = response.body();
-                                 for (int i = 0; i < guideList.size(); i++) {
-                                     guide = guideList.get(i);
-                                     adapterAdminGuide.addGuide(guide);
+        if (InternetConnection.checkConnection(getContext())) {
+            configRecycleView();
+            Call<List<Guide>> call = nService.view_guide();
+            call.enqueue(new Callback<List<Guide>>() {
+                             @Override
+                             public void onResponse(@NotNull Call<List<Guide>> call, @NotNull Response<List<Guide>> response) {
+                                 if (response.isSuccessful()) {
+                                     guideList = response.body();
+                                     for (int i = 0; i < guideList.size(); i++) {
+                                         guide = guideList.get(i);
+                                         adapterAdminGuide.addGuide(guide);
+                                     }
+                                     swipeRefreshLayout.setRefreshing(false);
                                  }
-                                 swipeRefreshLayout.setRefreshing(false);
+                             }
+
+                             @Override
+                             public void onFailure(@NotNull Call<List<Guide>> call, @NotNull Throwable t) {
+                                 Log.e("HHHHHHH", t.getMessage());
                              }
                          }
-
-                         @Override
-                         public void onFailure(@NotNull Call<List<Guide>> call, @NotNull Throwable t) {
-                             Log.e("HHHHHHH", t.getMessage());
-                         }
-                     }
-        );
+            );
+        } else {
+            Toast.makeText(getContext(), "Kesalahan jariangan", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void configRecycleView() {

@@ -11,4 +11,8 @@
         android:icon="@drawable/ic_guide"
         android:title="@string/title_guide" />
 
+    <item
+        android:id="@+id/navigation_lokasi"
+        android:icon="@drawable/ic_lokasi"
+        android:title="@string/title_lokasi" />
 </menu>

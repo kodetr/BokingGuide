@@ -1,6 +1,5 @@
 package com.ari.bokingguide.fragment;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.network.models.Login;
 import com.ari.bokingguide.utils.Constants;
+import com.ari.bokingguide.utils.InternetConnection;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -75,38 +75,42 @@ public class FragmentLogin extends Fragment {
             }
         } else {
             prgDialog.show();
-            Call<List<Login>> call = nService.login(user, pass);
-            call.enqueue(new Callback<List<Login>>() {
-                             @Override
-                             public void onResponse(@NotNull Call<List<Login>> call, @NotNull Response<List<Login>> response) {
-                                 if (response.isSuccessful()) {
-                                     prgDialog.dismiss();
-                                     loginList = response.body();
-                                     for (int i = 0; i < loginList.size(); i++) {
-                                         mLogin = loginList.get(i);
-                                         if (mLogin.getPesan().equalsIgnoreCase(getString(R.string.login_berhasil))) {
-                                             startActivity(new Intent(getContext(), MenuAdminActivity.class));
-                                             Toast.makeText(getContext(), mLogin.getPesan(), Toast.LENGTH_SHORT).show();
+            if (InternetConnection.checkConnection(getContext())) {
+                Call<List<Login>> call = nService.login(user, pass);
+                call.enqueue(new Callback<List<Login>>() {
+                                 @Override
+                                 public void onResponse(@NotNull Call<List<Login>> call, @NotNull Response<List<Login>> response) {
+                                     if (response.isSuccessful()) {
+                                         prgDialog.dismiss();
+                                         loginList = response.body();
+                                         for (int i = 0; i < loginList.size(); i++) {
+                                             mLogin = loginList.get(i);
+                                             if (mLogin.getPesan().equalsIgnoreCase(getString(R.string.login_berhasil))) {
+                                                 startActivity(new Intent(getContext(), MenuAdminActivity.class));
+                                                 Toast.makeText(getContext(), mLogin.getPesan(), Toast.LENGTH_SHORT).show();
 
-                                             SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                                             editor.putBoolean(Constants.LOGGEDIN_ADMIN_SHARED_PREF, true);
-                                             editor.commit();
-                                         } else {
-                                             Toast.makeText(getContext(), mLogin.getPesan(), Toast.LENGTH_SHORT).show();
+                                                 SharedPreferences sharedPreferences = getContext().getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                                                 SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                 editor.putBoolean(Constants.LOGGEDIN_ADMIN_SHARED_PREF, true);
+                                                 editor.commit();
+                                             } else {
+                                                 Toast.makeText(getContext(), mLogin.getPesan(), Toast.LENGTH_SHORT).show();
+                                             }
                                          }
+                                     } else {
+                                         prgDialog.dismiss();
                                      }
-                                 } else {
+                                 }
+
+                                 @Override
+                                 public void onFailure(@NotNull Call<List<Login>> call, @NotNull Throwable t) {
                                      prgDialog.dismiss();
                                  }
                              }
-
-                             @Override
-                             public void onFailure(@NotNull Call<List<Login>> call, @NotNull Throwable t) {
-                                 prgDialog.dismiss();
-                             }
-                         }
-            );
+                );
+            } else {
+                Toast.makeText(getContext(), "Kesalahan jariangan", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

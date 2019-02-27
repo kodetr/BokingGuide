@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ari.bokingguide.fragment.FragmentGuide;
+import com.ari.bokingguide.fragment.FragmentDestinasi;
 import com.ari.bokingguide.fragment.FragmentWisatawan;
 import com.ari.bokingguide.utils.Constants;
 
@@ -38,6 +39,9 @@ public class MenuAdminActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_guide:
                     transaction.replace(R.id.frame, new FragmentGuide()).commit();
+                    return true;
+                case R.id.navigation_lokasi:
+                    transaction.replace(R.id.frame, new FragmentDestinasi()).commit();
                     return true;
             }
             return false;
