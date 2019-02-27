@@ -159,7 +159,7 @@ public class FragmentDestinasi extends Fragment implements
     @Override
     public void onClick(int position) {
         selectedDestinasi = adapterAdminDestinasi.getDestinasi(position);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.MyAlertDialogStyle);
         builder.setTitle("Pilihan");
         builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
@@ -202,8 +202,11 @@ public class FragmentDestinasi extends Fragment implements
     }
 
     private void delete(int id) {
-        prgDialog = ProgressDialog.show(getContext(), "Proses Data", "Tunggu sebentar..!", false, false);
-        prgDialog.setProgressStyle(R.style.MyAlertDialogStyle);
+        prgDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
+
         Call<ResponseBody> call = nService.delete_destinasi(id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
