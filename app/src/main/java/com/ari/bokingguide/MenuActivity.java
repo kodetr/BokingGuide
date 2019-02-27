@@ -18,8 +18,6 @@ import com.ari.bokingguide.utils.Constants;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private boolean loggedInAdmin = false;
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -57,7 +55,7 @@ public class MenuActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        loggedInAdmin = sharedPreferences.getBoolean(Constants.LOGGEDIN_ADMIN_SHARED_PREF, false);
+        boolean loggedInAdmin = sharedPreferences.getBoolean(Constants.LOGGEDIN_ADMIN_SHARED_PREF, false);
         if (loggedInAdmin)
             startActivity(new Intent(MenuActivity.this, MenuAdminActivity.class));
     }

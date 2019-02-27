@@ -1,5 +1,6 @@
 package com.ari.bokingguide.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.ari.bokingguide.R;
+import com.ari.bokingguide.ViewGuideActivity;
 import com.ari.bokingguide.utils.CircleImageView;
 import com.ari.bokingguide.utils.EffectButton;
 
@@ -17,8 +19,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class FragmentHome extends Fragment {
 
-    private double animationDuration;
-    private EffectButton effect;
     private Animation anim;
     private CircleImageView btnPengguna;
     private CircleImageView btnLokasi;
@@ -30,8 +30,8 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        animationDuration = 0.1 * 2000;
-        effect = new EffectButton(1, 3);
+        double animationDuration = 0.1 * 2000;
+        EffectButton effect = new EffectButton(1, 3);
         anim = AnimationUtils.loadAnimation(getContext(), R.anim.bounce);
         anim.setDuration((long) animationDuration);
         anim.setInterpolator(effect);
@@ -42,7 +42,7 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View view) {
                 btnPengguna.startAnimation(anim);
-                Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), ViewGuideActivity.class));
             }
         });
         btnLokasi.setOnClickListener(new View.OnClickListener() {

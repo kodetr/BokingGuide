@@ -159,7 +159,7 @@ public class FragmentDestinasi extends Fragment implements
     @Override
     public void onClick(int position) {
         selectedDestinasi = adapterAdminDestinasi.getDestinasi(position);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.MyAlertDialogStyle);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.AlertDialogStyle);
         builder.setTitle("Pilihan");
         builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
