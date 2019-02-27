@@ -80,7 +80,6 @@
                             android:layout_marginTop="10dp"
                             android:background="@drawable/button_shape_no_fill_edit"
                             android:hint="Lokasi"
-                            android:inputType="number"
                             android:maxLines="1"
                             android:paddingLeft="10dp"
                             android:textColor="@android:color/black"

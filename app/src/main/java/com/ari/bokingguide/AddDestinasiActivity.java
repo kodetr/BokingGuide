@@ -31,7 +31,6 @@ public class AddDestinasiActivity extends AppCompatActivity {
     private String[] spdestinasi = {"Air Tejun", "Pantai", "Bukit", "Pegunungan"};
     private EditText etNama, etKeterangan, etLokasi;
     private Spinner spJenis;
-    private RadioGroup rgKelamin;
 
     private DataService nService;
     private ProgressDialog prgDialog;
@@ -65,8 +64,9 @@ public class AddDestinasiActivity extends AppCompatActivity {
 
     private void init() {
         etNama = findViewById(R.id.etNama);
-        etLokasi = findViewById(R.id.etBahasa);
-        etKeterangan = findViewById(R.id.etKontak);
+        etLokasi = findViewById(R.id.etLokasi);
+        etKeterangan = findViewById(R.id.etKeterangan);
+        spJenis = findViewById(R.id.spJenis);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spdestinasi);
         spJenis.setAdapter(arrayAdapter);
         Button btnSimpan = findViewById(R.id.btnSimpan);
