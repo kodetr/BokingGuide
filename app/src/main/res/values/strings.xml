@@ -25,4 +25,5 @@
     <string name="cari_vidio">Cari Vidio</string>
     <string name="upload">UPLOAD</string>
     <string name="title_lokasi">Lokasi</string>
+    <string name="jaringan">Terjadi kesalahan pada jaringan</string>
 </resources>

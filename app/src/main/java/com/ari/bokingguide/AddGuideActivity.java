@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
+import com.ari.bokingguide.utils.InternetConnection;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -79,7 +80,11 @@ public class AddGuideActivity extends AppCompatActivity {
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validasiBtnSimpan();
+                if(InternetConnection.checkConnection(AddGuideActivity.this)) {
+                    validasiBtnSimpan();
+                }else{
+                    Toast.makeText(AddGuideActivity.this, getString(R.string.jaringan), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -115,7 +120,10 @@ public class AddGuideActivity extends AppCompatActivity {
     }
 
     private void btnSimpan() {
-        prgDialog = ProgressDialog.show(AddGuideActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
 
         String nama = etNama.getText().toString();
         int umur = Integer.valueOf(etUmur.getText().toString());
@@ -130,7 +138,6 @@ public class AddGuideActivity extends AppCompatActivity {
         String agama = spAgama.getSelectedItem().toString();
         String foto = "default/default.png";
 
-        prgDialog.show();
         Call<ResponseBody> call = nService.add_guide(nama, umur, agama, bahasa, kontak, lokasi, jk, foto);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -153,7 +160,10 @@ public class AddGuideActivity extends AppCompatActivity {
     }
 
     private void btnUpdate() {
-        prgDialog = ProgressDialog.show(AddGuideActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
 
         String nama = etNama.getText().toString();
         int umur = Integer.valueOf(etUmur.getText().toString());
@@ -167,7 +177,6 @@ public class AddGuideActivity extends AppCompatActivity {
 
         String agama = spAgama.getSelectedItem().toString();
 
-        prgDialog.show();
         Call<ResponseBody> call = nService.update_guide(getIntent().getIntExtra("id", 0), nama, umur, agama, bahasa, kontak, lokasi, jk);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

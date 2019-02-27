@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
+import com.ari.bokingguide.utils.InternetConnection;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -73,7 +74,11 @@ public class AddDestinasiActivity extends AppCompatActivity {
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validasiBtnSimpan();
+                if(InternetConnection.checkConnection(AddDestinasiActivity.this)) {
+                    validasiBtnSimpan();
+                }else{
+                    Toast.makeText(AddDestinasiActivity.this, getString(R.string.jaringan), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -103,7 +108,10 @@ public class AddDestinasiActivity extends AppCompatActivity {
     }
 
     private void btnSimpan() {
-        prgDialog = ProgressDialog.show(AddDestinasiActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
 
         String nama = etNama.getText().toString();
         String lokasi = etLokasi.getText().toString();
@@ -112,7 +120,6 @@ public class AddDestinasiActivity extends AppCompatActivity {
         String jenis = spJenis.getSelectedItem().toString();
         String foto = "default/default.png";
 
-        prgDialog.show();
         Call<ResponseBody> call = nService.add_destinasi(nama, jenis, lokasi, keterangan, foto);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -135,15 +142,16 @@ public class AddDestinasiActivity extends AppCompatActivity {
     }
 
     private void btnUpdate() {
-        prgDialog = ProgressDialog.show(AddDestinasiActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
 
         String nama = etNama.getText().toString();
         String lokasi = etLokasi.getText().toString();
         String keterangan = etKeterangan.getText().toString();
-
         String jenis = spJenis.getSelectedItem().toString();
 
-        prgDialog.show();
         Call<ResponseBody> call = nService.update_destinasi(getIntent().getIntExtra("id", 0), nama, jenis, lokasi, keterangan);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

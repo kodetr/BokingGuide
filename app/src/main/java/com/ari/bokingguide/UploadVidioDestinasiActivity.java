@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
+import com.ari.bokingguide.utils.InternetConnection;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -80,14 +81,18 @@ public class UploadVidioDestinasiActivity extends AppCompatActivity {
 
     private void btnSimpan() {
         if (selectedImageUri != null) {
-            uploadVidio();
-        } else {
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+            if(InternetConnection.checkConnection(this)) {
+                uploadVidio();
+            }else{
+                Toast.makeText(this, getString(R.string.jaringan), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     private void uploadVidio() {
-        prgDialog = ProgressDialog.show(UploadVidioDestinasiActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
         prgDialog.show();
 
 //        File file = FileUtils.getFile(this, selectedImageUri);

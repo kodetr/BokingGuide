@@ -118,7 +118,7 @@ public class FragmentWisatawan extends Fragment implements
                          }
             );
         } else {
-            Toast.makeText(getContext(), "Kesalahan jariangan", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.jaringan), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -238,7 +238,7 @@ public class FragmentWisatawan extends Fragment implements
 
     private void delete(int id) {
         prgDialog = ProgressDialog.show(getContext(), "Proses Data", "Tunggu sebentar..!", false, false);
-        prgDialog.show();
+        prgDialog.setProgressStyle(R.style.MyAlertDialogStyle);
         Call<ResponseBody> call = nService.delete_wisatawan(id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

@@ -16,6 +16,7 @@ import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.utils.CircleImageView;
 import com.ari.bokingguide.utils.FileUtils;
+import com.ari.bokingguide.utils.InternetConnection;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -78,14 +79,18 @@ public class UploadGuideActivity extends AppCompatActivity {
 
     private void btnSimpan() {
         if (fotoURI != null) {
-            uploadFoto();
-        } else {
-            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+            if(InternetConnection.checkConnection(this)) {
+                uploadFoto();
+            }else{
+                Toast.makeText(this, getString(R.string.jaringan), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     private void uploadFoto() {
-        prgDialog = ProgressDialog.show(UploadGuideActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
         prgDialog.show();
 
         File file = FileUtils.getFile(this, fotoURI);

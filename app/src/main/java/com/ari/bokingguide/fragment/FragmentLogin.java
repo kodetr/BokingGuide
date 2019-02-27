@@ -47,7 +47,7 @@ public class FragmentLogin extends Fragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
-        prgDialog = new ProgressDialog(getContext());
+        prgDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
         prgDialog.setMessage("Tunggu sebentar...!!!");
 
         username = v.findViewById(R.id.etUseranme);
@@ -109,7 +109,7 @@ public class FragmentLogin extends Fragment {
                              }
                 );
             } else {
-                Toast.makeText(getContext(), "Kesalahan jariangan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.jaringan), Toast.LENGTH_SHORT).show();
             }
         }
     }

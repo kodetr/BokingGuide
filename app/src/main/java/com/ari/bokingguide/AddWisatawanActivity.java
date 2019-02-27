@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.utils.CircleImageView;
+import com.ari.bokingguide.utils.InternetConnection;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -78,7 +79,11 @@ public class AddWisatawanActivity extends AppCompatActivity {
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validasiBtnSimpan();
+                if(InternetConnection.checkConnection(AddWisatawanActivity.this)) {
+                    validasiBtnSimpan();
+                }else{
+                    Toast.makeText(AddWisatawanActivity.this, getString(R.string.jaringan), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -109,7 +114,10 @@ public class AddWisatawanActivity extends AppCompatActivity {
     }
 
     private void btnSimpan() {
-        prgDialog = ProgressDialog.show(AddWisatawanActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
 
         String nama = etNama.getText().toString();
         int umur = Integer.valueOf(etUmur.getText().toString());
@@ -123,7 +131,6 @@ public class AddWisatawanActivity extends AppCompatActivity {
         String agama = spAgama.getSelectedItem().toString();
         String foto = "default/default.png";
 
-        prgDialog.show();
         Call<ResponseBody> call = nService.add_wisatawan(nama, umur, agama, bahasa, jk, kontak, foto);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -146,7 +153,10 @@ public class AddWisatawanActivity extends AppCompatActivity {
     }
 
     private void btnUpdate() {
-        prgDialog = ProgressDialog.show(AddWisatawanActivity.this, "Proses Data", "Tunggu sebentar..!", false, false);
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
 
         String nama = etNama.getText().toString();
         int umur = Integer.valueOf(etUmur.getText().toString());
@@ -159,7 +169,6 @@ public class AddWisatawanActivity extends AppCompatActivity {
 
         String agama = spAgama.getSelectedItem().toString();
 
-        prgDialog.show();
         Call<ResponseBody> call = nService.update_wisatawan(getIntent().getIntExtra("id", 0), nama, umur, agama, bahasa, jk, kontak);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
