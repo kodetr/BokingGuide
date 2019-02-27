@@ -10,7 +10,7 @@
 	$extention	= array_pop($original);
 	$file_path 	= $id.".".$extention;
 
-	$upload	= move_uploaded_file($_FILES["upload_file"]["tmp_name"],"vido/".$file_path);
+	$upload	= move_uploaded_file($_FILES["upload_file"]["tmp_name"],"vidio/".$file_path);
 
 	$sql = "UPDATE tbl_guide SET vidio='$file_path' WHERE id='$id'";
 	mysqli_query($status,$sql);

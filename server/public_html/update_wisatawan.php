@@ -8,7 +8,6 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
   $bahasa = $_POST['bahasa'];
   $jk = $_POST['jk'];
   $kontak = $_POST['kontak'];
-  $foto = $_POST['foto'];
 
 // membuat query
 $sql = "UPDATE tbl_wisatawan SET nama='$nama', umur='$umur', agama='$agama', bahasa='$bahasa', jk='$jk', kontak='$kontak' 

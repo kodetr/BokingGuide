@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 21, 2019 at 03:29 AM
--- Server version: 10.3.12-MariaDB
--- PHP Version: 7.0.26
+-- Generation Time: Feb 27, 2019 at 03:38 AM
+-- Server version: 10.3.13-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,6 +25,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_destinasi`
+--
+
+CREATE TABLE `tbl_destinasi` (
+  `id` int(11) NOT NULL,
+  `nama` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `jenis` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `lokasi` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `keterangan` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `foto` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default/default.png',
+  `vidio` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tbl_destinasi`
+--
+
+INSERT INTO `tbl_destinasi` (`id`, `nama`, `jenis`, `lokasi`, `keterangan`, `foto`, `vidio`) VALUES
+(2, 'vvv', 'Air Tejun', 'g', 'g', '2.jpg', '2.mp4');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_guide`
 --
 
@@ -34,14 +57,14 @@ CREATE TABLE `tbl_guide` (
   `umur` int(5) NOT NULL,
   `agama` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `bahasa` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `kontak` int(15) NOT NULL,
-  `lokasi` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `kontak` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `lokasi` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `jk` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `foto` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default.png',
-  `vidio` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `rating` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `jmh_rating` int(10) NOT NULL,
-  `tag` int(1) NOT NULL
+  `foto` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'default/default.png',
+  `vidio` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rating` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `jmh_rating` int(10) NOT NULL DEFAULT 0,
+  `tag` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -49,8 +72,8 @@ CREATE TABLE `tbl_guide` (
 --
 
 INSERT INTO `tbl_guide` (`id`, `nama`, `umur`, `agama`, `bahasa`, `kontak`, `lokasi`, `jk`, `foto`, `vidio`, `rating`, `jmh_rating`, `tag`) VALUES
-(1, 'heru', 21, 'islam', 'indonesia', 87237238, 'mataram', 'perempuan', 'default/default.png', 'helo.png', '4', 2, 0),
-(2, 'heru', 21, 'islam', 'indonesia', 87237238, 'mataram', 'perempuan', 'default/default.png', 'helo.png', '3', 1, 0);
+(2, 'heru santo', 21, 'Islam', 'indonesia', '87237238', 'mataram', 'Pria', 'default/default.png', '2.mp4', '3', 1, 0),
+(6, 'tuli', 21, 'Islam', 'indo', '082686', 'mataram', 'Pria', '6.jpg', NULL, '0', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -66,7 +89,7 @@ CREATE TABLE `tbl_wisatawan` (
   `bahasa` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `jk` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `kontak` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'default.png'
+  `foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'default/default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -102,6 +125,12 @@ INSERT INTO `users` (`id`, `username`, `password`) VALUES
 --
 
 --
+-- Indexes for table `tbl_destinasi`
+--
+ALTER TABLE `tbl_destinasi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_guide`
 --
 ALTER TABLE `tbl_guide`
@@ -124,10 +153,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_destinasi`
+--
+ALTER TABLE `tbl_destinasi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `tbl_guide`
 --
 ALTER TABLE `tbl_guide`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_wisatawan`

@@ -9,11 +9,10 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
   $lokasi = $_POST['lokasi'];
   $jk = $_POST['jk'];
   $foto = $_POST['foto'];
-  $vidio = $_POST['vidio'];
 
 // membuat query
-$sql = "INSERT INTO tbl_guide (nama, umur, agama, bahasa, kontak, lokasi, jk, foto, vidio, tag) 
-       VALUES ('$nama','$umur','$agama','$bahasa','$kontak','$lokasi','$jk','$foto','$vidio','0')";
+$sql = "INSERT INTO tbl_guide (nama, umur, agama, bahasa, kontak, lokasi, jk, foto) 
+       VALUES ('$nama','$umur','$agama','$bahasa','$kontak','$lokasi','$jk','$foto')";
 
 //Importing our db connection script
 include("config/koneksi.php");
