@@ -90,7 +90,9 @@ public interface DataService {
     @POST("update_guide_rating.php")
     Call<ResponseBody> update_guide_rating(
             @Query("id") int id,
-            @Field("rating") int rating
+            @Field("rating") String rating,
+            @Field("jmh_rating") int jmh_rating,
+            @Field("jmh_num") int jmh_num
     );
 
     @GET("delete_guide.php")

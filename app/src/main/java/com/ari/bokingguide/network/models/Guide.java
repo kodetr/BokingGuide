@@ -13,6 +13,7 @@ public class Guide {
     private String vidio;
     private String rating;
     private int jmh_rating;
+    private int jmh_num;
     private int tag;
     private String pesan;
 
@@ -62,6 +63,10 @@ public class Guide {
 
     public int getJmh_rating() {
         return jmh_rating;
+    }
+
+    public int getJmh_num() {
+        return jmh_num;
     }
 
     public int getTag() {
