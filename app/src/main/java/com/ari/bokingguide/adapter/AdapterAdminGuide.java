@@ -1,14 +1,11 @@
 package com.ari.bokingguide.adapter;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.network.models.Guide;
@@ -54,7 +51,7 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
         holder.tvKontak.setText(getGuide.getKontak());
         holder.tvLokasi.setText(getGuide.getLokasi());
         holder.tvjmhGuide.setText(String.valueOf(getGuide.getJmh_rating()));
-        holder.rating.setRating(Integer.valueOf(getGuide.getRating()));
+        holder.rating.setRating(Float.valueOf(getGuide.getRating()));
         Glide.with(holder.itemView.getContext())
                 .load(getGuide.getFoto())
                 .apply(new RequestOptions()

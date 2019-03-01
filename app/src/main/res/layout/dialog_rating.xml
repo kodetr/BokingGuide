@@ -15,6 +15,5 @@
         android:clickable="true"
         android:isIndicator="false"
         android:numStars="5"
-        android:rating="2"
         android:stepSize="1.0" />
 </LinearLayout>

@@ -234,7 +234,7 @@ public class ViewGuideActivity extends AppCompatActivity implements
     }
 
 
-    private void ShowDialog(final int id, final int jmh_rating, final int num_rating) {
+    private void ShowDialog(final int id, final int jmh_rating, final String num_rating) {
         LayoutInflater myLayout = LayoutInflater.from(this);
         final View dialogView = myLayout.inflate(R.layout.dialog_rating, null);
         final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
@@ -245,10 +245,10 @@ public class ViewGuideActivity extends AppCompatActivity implements
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         int hasil_jmh_rating = 1 + jmh_rating;
-                        int hasil_num_rating = ratingBar.getNumStars() + num_rating;
+                        double hasil_num_rating = ratingBar.getRating() + Double.valueOf(num_rating);
                         String hasil_rating = String.valueOf(hasil_num_rating / hasil_jmh_rating);
+                        update_guide_rate(id, hasil_rating, hasil_jmh_rating, String.valueOf(hasil_num_rating));
 
-                        update_guide_rate(id, hasil_rating, hasil_jmh_rating, hasil_num_rating);
                         dialog.dismiss();
                     }
                 })
@@ -263,7 +263,7 @@ public class ViewGuideActivity extends AppCompatActivity implements
         popDialog.show();
     }
 
-    private void update_guide_rate(int id, String rating, int jmh_rating, int num_rating) {
+    private void update_guide_rate(int id, String rating, int jmh_rating, String num_rating) {
         prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
         prgDialog.setMessage("Tunggu sebentar...!!!");
         prgDialog.setCancelable(false);
@@ -274,10 +274,10 @@ public class ViewGuideActivity extends AppCompatActivity implements
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     prgDialog.dismiss();
-                    Toast.makeText(ViewGuideActivity.this, getString(R.string.ubah_berhasil), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ViewGuideActivity.this, getString(R.string.simpan_berhasil), Toast.LENGTH_LONG).show();
                 } else {
                     prgDialog.dismiss();
-                    Toast.makeText(ViewGuideActivity.this, getString(R.string.ubah_gagal), Toast.LENGTH_LONG).show();
+                    Toast.makeText(ViewGuideActivity.this, getString(R.string.simpan_gagal), Toast.LENGTH_LONG).show();
                 }
             }
 

@@ -92,7 +92,7 @@ public interface DataService {
             @Query("id") int id,
             @Field("rating") String rating,
             @Field("jmh_rating") int jmh_rating,
-            @Field("jmh_num") int jmh_num
+            @Field("jmh_num") String jmh_num
     );
 
     @GET("delete_guide.php")

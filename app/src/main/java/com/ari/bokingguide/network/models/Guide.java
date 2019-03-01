@@ -13,7 +13,7 @@ public class Guide {
     private String vidio;
     private String rating;
     private int jmh_rating;
-    private int jmh_num;
+    private String jmh_num;
     private int tag;
     private String pesan;
 
@@ -65,7 +65,7 @@ public class Guide {
         return jmh_rating;
     }
 
-    public int getJmh_num() {
+    public String getJmh_num() {
         return jmh_num;
     }
 
