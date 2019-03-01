@@ -53,6 +53,7 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
         holder.tvKelamin.setText(getGuide.getJk());
         holder.tvKontak.setText(getGuide.getKontak());
         holder.tvLokasi.setText(getGuide.getLokasi());
+        holder.tvjmhGuide.setText(String.valueOf(getGuide.getJmh_rating()));
         holder.rating.setRating(Integer.valueOf(getGuide.getRating()));
         Glide.with(holder.itemView.getContext())
                 .load(getGuide.getFoto())
@@ -73,7 +74,7 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tvNama, tvUmur, tvAgama, tvBahasa, tvKelamin, tvKontak, tvLokasi;
+        private TextView tvNama, tvUmur, tvAgama, tvBahasa, tvKelamin, tvKontak, tvLokasi, tvjmhGuide;
         private RatingBar rating;
         private CircleImageView ivFoto;
 
@@ -88,6 +89,7 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
             tvLokasi = itemView.findViewById(R.id.tvLokasi);
             rating = itemView.findViewById(R.id.rating);
             ivFoto = itemView.findViewById(R.id.ivFoto);
+            tvjmhGuide = itemView.findViewById(R.id.tv_jmhGuide);
             rating.setFocusable(false);
             itemView.setOnClickListener(this);
         }

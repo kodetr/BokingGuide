@@ -1,7 +1,5 @@
 package com.ari.bokingguide.network;
 
-import android.database.Observable;
-
 import com.ari.bokingguide.network.models.Destinasi;
 import com.ari.bokingguide.network.models.Guide;
 import com.ari.bokingguide.network.models.Login;
@@ -10,7 +8,6 @@ import com.ari.bokingguide.network.models.Wisatawan;
 import java.util.List;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -19,7 +16,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface DataService {
@@ -88,6 +84,13 @@ public interface DataService {
             @Field("kontak") String kontak,
             @Field("lokasi") String lokasi,
             @Field("jk") String jk
+    );
+
+    @FormUrlEncoded
+    @POST("update_guide_rating.php")
+    Call<ResponseBody> update_guide_rating(
+            @Query("id") int id,
+            @Field("rating") int rating
     );
 
     @GET("delete_guide.php")

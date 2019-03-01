@@ -16,8 +16,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.ari.bokingguide.fragment.FragmentGuide;
 import com.ari.bokingguide.fragment.FragmentDestinasi;
+import com.ari.bokingguide.fragment.FragmentGuide;
 import com.ari.bokingguide.fragment.FragmentWisatawan;
 import com.ari.bokingguide.utils.Constants;
 
@@ -76,6 +76,9 @@ public class MenuAdminActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_logout) {
             Keluar();
+            return true;
+        } else if (id == R.id.action_notif) {
+
             return true;
         }
         return super.onOptionsItemSelected(item);

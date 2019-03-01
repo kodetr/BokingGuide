@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="70dp"
                 android:layout_marginTop="10dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <RatingBar
                     android:id="@+id/rating"
@@ -37,8 +38,18 @@
                     android:isIndicator="true"
                     android:numStars="5"
                     android:stepSize="0.1" />
-            </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tv_jmhGuide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
