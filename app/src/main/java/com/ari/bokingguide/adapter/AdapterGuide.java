@@ -20,12 +20,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Holder> {
+public class AdapterGuide extends RecyclerView.Adapter<AdapterGuide.Holder> {
 
     private final MClickListener nListener;
     private List<Guide> lguide;
 
-    public AdapterAdminGuide(MClickListener listener) {
+    public AdapterGuide(MClickListener listener) {
         lguide = new ArrayList<>();
         nListener = listener;
     }
@@ -44,7 +44,6 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
     @Override
     public void onBindViewHolder(@NotNull Holder holder, int position) {
         Guide getGuide = lguide.get(position);
-
         holder.tvNama.setText(getGuide.getNama());
         holder.tvUmur.setText(String.valueOf(getGuide.getUmur()));
         holder.tvAgama.setText(getGuide.getAgama());
@@ -61,9 +60,17 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
                         .skipMemoryCache(true))
                 .into(holder.ivFoto);
 
-        holder.llContainerBoking.setVisibility(View.GONE);
-        holder.containerA.setEnabled(true);
-        holder.containerB.setVisibility(View.GONE);
+        if (getGuide.getTag() == 0) {
+            holder.llContainerBoking.setVisibility(View.GONE);
+            holder.containerA.setEnabled(true);
+            holder.containerB.setVisibility(View.GONE);
+            holder.containerC.setAlpha((float) 1);
+        } else {
+            holder.containerC.setAlpha((float) 0.1);
+            holder.llContainerBoking.setVisibility(View.VISIBLE);
+            holder.containerA.setEnabled(false);
+            holder.containerB.setVisibility(View.VISIBLE);
+        }
     }
 
     public void addGuide(Guide guide) {
@@ -80,7 +87,7 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
         private TextView tvNama, tvUmur, tvAgama, tvBahasa, tvKelamin, tvKontak, tvLokasi, tvjmhGuide, tvNamaWisatawan;
         private RatingBar rating;
         private CircleImageView ivFoto, ivFotoWisatawan;
-        private LinearLayout llContainerBoking, containerA, containerB;
+        private LinearLayout llContainerBoking, containerA, containerB, containerC;
 
         Holder(View itemView) {
             super(itemView);
@@ -99,6 +106,7 @@ public class AdapterAdminGuide extends RecyclerView.Adapter<AdapterAdminGuide.Ho
             tvNamaWisatawan = itemView.findViewById(R.id.tvNamaWisatawan);
             containerA = itemView.findViewById(R.id.containerA);
             containerB = itemView.findViewById(R.id.containerB);
+            containerC = itemView.findViewById(R.id.containerC);
             rating.setFocusable(false);
             itemView.setOnClickListener(this);
         }

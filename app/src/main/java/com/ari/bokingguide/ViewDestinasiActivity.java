@@ -160,5 +160,6 @@ public class ViewDestinasiActivity extends AppCompatActivity implements
                 }
             }
         });
+        builder.show();
     }
 }

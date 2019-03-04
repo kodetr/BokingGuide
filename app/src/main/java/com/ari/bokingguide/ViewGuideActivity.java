@@ -1,8 +1,10 @@
 package com.ari.bokingguide;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,10 +24,11 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import com.ari.bokingguide.adapter.AdapterAdminGuide;
+import com.ari.bokingguide.adapter.AdapterGuide;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.network.models.Guide;
+import com.ari.bokingguide.utils.Constants;
 import com.ari.bokingguide.utils.InternetConnection;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,16 +44,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ViewGuideActivity extends AppCompatActivity implements
-        AdapterAdminGuide.MClickListener, SwipeRefreshLayout.OnRefreshListener {
+        AdapterGuide.MClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private DataService nService;
     private Guide guide;
-    private AdapterAdminGuide adapterAdminGuide;
+    private AdapterGuide adapterGuide;
     private List<Guide> guideList;
     private RecyclerView mRecycleView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView mSearchView = null;
     private ProgressDialog prgDialog;
+    private boolean tagRating;
 
     public ViewGuideActivity() {
         DataProvider provider = new DataProvider();
@@ -65,6 +69,9 @@ public class ViewGuideActivity extends AppCompatActivity implements
         toolbar.setTitle("Daftar Guide");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_RATING, Context.MODE_PRIVATE);
+        tagRating = sharedPreferences.getBoolean(Constants.RATING_PREF, false);
 
         mRecycleView = findViewById(R.id.recylerview);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
@@ -98,7 +105,7 @@ public class ViewGuideActivity extends AppCompatActivity implements
                                      guideList = response.body();
                                      for (int i = 0; i < guideList.size(); i++) {
                                          guide = guideList.get(i);
-                                         adapterAdminGuide.addGuide(guide);
+                                         adapterGuide.addGuide(guide);
                                      }
                                      swipeRefreshLayout.setRefreshing(false);
                                  }
@@ -119,8 +126,8 @@ public class ViewGuideActivity extends AppCompatActivity implements
         mRecycleView.setHasFixedSize(true);
         mRecycleView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         mRecycleView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapterAdminGuide = new AdapterAdminGuide(this);
-        mRecycleView.setAdapter(adapterAdminGuide);
+        adapterGuide = new AdapterGuide(this);
+        mRecycleView.setAdapter(adapterGuide);
     }
 
     @Override
@@ -151,7 +158,7 @@ public class ViewGuideActivity extends AppCompatActivity implements
             public boolean onQueryTextSubmit(String s) {
                 mSearchView.clearFocus();
                 final List<Guide> filteredModelList = filter(guideList, s);
-                adapterAdminGuide.setFilter(filteredModelList);
+                adapterGuide.setFilter(filteredModelList);
 
                 if (filteredModelList.size() == 0) {
                     Toast.makeText(ViewGuideActivity.this, "Data tidak ditemukan!", Toast.LENGTH_SHORT).show();
@@ -162,7 +169,7 @@ public class ViewGuideActivity extends AppCompatActivity implements
             @Override
             public boolean onQueryTextChange(String s) {
                 final List<Guide> filteredModelList = filter(guideList, s);
-                adapterAdminGuide.setFilter(filteredModelList);
+                adapterGuide.setFilter(filteredModelList);
                 if (filteredModelList.size() == 0) {
                     Toast.makeText(ViewGuideActivity.this, "Data tidak ditemukan!", Toast.LENGTH_SHORT).show();
                 }
@@ -204,7 +211,7 @@ public class ViewGuideActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(int position) {
-        selectGuide = adapterAdminGuide.getGuide(position);
+        selectGuide = adapterGuide.getGuide(position);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AlertDialogStyle);
         builder.setTitle("Pilihan");
         builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
@@ -218,7 +225,16 @@ public class ViewGuideActivity extends AppCompatActivity implements
 
                         break;
                     case 2:
-                        ShowDialog(selectGuide.getId(), selectGuide.getJmh_rating(), selectGuide.getJmh_num());
+                        if (!tagRating) {
+                            SharedPreferences sharedPreferences = getSharedPreferences(Constants.SHARED_PREF_RATING, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean(Constants.RATING_PREF, true);
+                            editor.commit();
+
+                            ShowDialog(selectGuide.getId(), selectGuide.getJmh_rating(), selectGuide.getJmh_num());
+                        } else {
+                            Toast.makeText(ViewGuideActivity.this, "Sudah melakukan Rating", Toast.LENGTH_SHORT).show();
+                        }
                         break;
                     case 3:
                         VideoView videoView = new VideoView(ViewGuideActivity.this);
