@@ -26,4 +26,8 @@
     <string name="upload">UPLOAD</string>
     <string name="title_destinasi">Destinasi</string>
     <string name="jaringan">Terjadi kesalahan pada jaringan</string>
+    <string name="selesai">Selesai</string>
+    <string name="pesan_nama_guide">Nama guide belum diisi!</string>
+    <string name="pesan_tgl_mulai">Tanggal mulai belum diisi!</string>
+    <string name="pesan_tgl_akhir">Tanggal akhir belum diisi!</string>
 </resources>

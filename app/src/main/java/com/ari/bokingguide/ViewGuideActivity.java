@@ -25,6 +25,7 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.ari.bokingguide.adapter.AdapterGuide;
+import com.ari.bokingguide.boking.BoWisatawanActivity;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.network.models.Guide;
@@ -223,6 +224,9 @@ public class ViewGuideActivity extends AppCompatActivity implements
                         break;
                     case 1:
 
+                        Intent intent1 = new Intent(ViewGuideActivity.this, BoWisatawanActivity.class);
+                        intent1.putExtra("nama_guide",selectGuide.getNama());
+                        startActivity(intent1);
                         break;
                     case 2:
                         if (!tagRating) {

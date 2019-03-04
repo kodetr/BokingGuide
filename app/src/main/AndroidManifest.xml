@@ -25,7 +25,7 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddWisatawanActivity"
+            android:name=".boking.BoWisatawanActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddGuideActivity"

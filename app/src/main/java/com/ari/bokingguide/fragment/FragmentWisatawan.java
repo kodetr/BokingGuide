@@ -1,9 +1,9 @@
 package com.ari.bokingguide.fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -21,9 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.ari.bokingguide.AddWisatawanActivity;
 import com.ari.bokingguide.R;
-import com.ari.bokingguide.UploadWisatawanActivity;
 import com.ari.bokingguide.adapter.AdapterAdminWisatawan;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
@@ -43,7 +41,7 @@ import retrofit2.Response;
 public class FragmentWisatawan extends Fragment implements
         AdapterAdminWisatawan.MClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private String[] dialogitem = {"Ganti Foto", "Ubah", "Hapus"};
+    private String[] dialogitem = {"Hapus"};
     private DataService nService;
     private Wisatawan wisatawan;
     private AdapterAdminWisatawan adapterAdminWisatawan;
@@ -59,6 +57,7 @@ public class FragmentWisatawan extends Fragment implements
         nService = provider.getTService();
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment, container, false);
@@ -77,14 +76,8 @@ public class FragmentWisatawan extends Fragment implements
         );
 
         FloatingActionButton btnAdd = v.findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent itag = new Intent(getContext(), AddWisatawanActivity.class);
-                itag.putExtra("tag", false);
-                startActivity(itag);
-            }
-        });
+        btnAdd.setVisibility(View.GONE);
+
         return v;
     }
 
@@ -212,21 +205,6 @@ public class FragmentWisatawan extends Fragment implements
             public void onClick(DialogInterface dialog, int item) {
                 switch (item) {
                     case 0:
-                        Intent ifoto = new Intent(getContext(), UploadWisatawanActivity.class);
-                        ifoto.putExtra("id", selectedwisatawan.getId());
-                        startActivity(ifoto);
-                        break;
-                    case 1:
-                        Intent iupdate = new Intent(getContext(), AddWisatawanActivity.class);
-                        iupdate.putExtra("id", selectedwisatawan.getId());
-                        iupdate.putExtra("nama", selectedwisatawan.getNama());
-                        iupdate.putExtra("umur", selectedwisatawan.getUmur());
-                        iupdate.putExtra("bahasa", selectedwisatawan.getBahasa());
-                        iupdate.putExtra("kontak", selectedwisatawan.getKontak());
-                        iupdate.putExtra("tag", true);
-                        startActivity(iupdate);
-                        break;
-                    case 2:
                         delete(selectedwisatawan.getId());
                         break;
                 }

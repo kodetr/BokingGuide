@@ -38,19 +38,10 @@ public interface DataService {
             @Field("bahasa") String bahasa,
             @Field("jk") String jk,
             @Field("kontak") String kontak,
-            @Field("foto") String foto
-    );
-
-    @FormUrlEncoded
-    @POST("update_wisatawan.php")
-    Call<ResponseBody> update_wisatawan(
-            @Query("id") int id,
-            @Field("nama") String nama,
-            @Field("umur") int umur,
-            @Field("agama") String agama,
-            @Field("bahasa") String bahasa,
-            @Field("jk") String jk,
-            @Field("kontak") String kontak
+            @Field("foto") String foto,
+            @Field("nama_guide") String nama_guide,
+            @Field("tgl_mulai") String tgl_mulai,
+            @Field("tgl_akhir") String tgl_akhir
     );
 
     @GET("delete_wisatawan.php")
