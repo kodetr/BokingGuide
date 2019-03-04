@@ -247,8 +247,8 @@ public class ViewGuideActivity extends AppCompatActivity implements
                         int hasil_jmh_rating = 1 + jmh_rating;
                         double hasil_num_rating = ratingBar.getRating() + Double.valueOf(num_rating);
                         String hasil_rating = String.valueOf(hasil_num_rating / hasil_jmh_rating);
-                        update_guide_rate(id, hasil_rating, hasil_jmh_rating, String.valueOf(hasil_num_rating));
 
+                        update_guide_rate(id, hasil_rating, hasil_jmh_rating, String.valueOf(hasil_num_rating));
                         dialog.dismiss();
                     }
                 })
@@ -273,6 +273,7 @@ public class ViewGuideActivity extends AppCompatActivity implements
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    showData();
                     prgDialog.dismiss();
                     Toast.makeText(ViewGuideActivity.this, getString(R.string.simpan_berhasil), Toast.LENGTH_LONG).show();
                 } else {

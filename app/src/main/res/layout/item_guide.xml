@@ -199,7 +199,6 @@
                         android:textColor="@android:color/darker_gray" />
 
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
 

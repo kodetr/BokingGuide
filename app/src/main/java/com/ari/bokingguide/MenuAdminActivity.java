@@ -40,7 +40,7 @@ public class MenuAdminActivity extends AppCompatActivity {
                 case R.id.navigation_guide:
                     transaction.replace(R.id.frame, new FragmentGuide()).commit();
                     return true;
-                case R.id.navigation_lokasi:
+                case R.id.navigation_destinasi:
                     transaction.replace(R.id.frame, new FragmentDestinasi()).commit();
                     return true;
             }

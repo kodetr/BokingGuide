@@ -24,6 +24,6 @@
     <string name="pesan_lokasi">Lokasi belum diisi!</string>
     <string name="cari_vidio">Cari Vidio</string>
     <string name="upload">UPLOAD</string>
-    <string name="title_lokasi">Lokasi</string>
+    <string name="title_destinasi">Destinasi</string>
     <string name="jaringan">Terjadi kesalahan pada jaringan</string>
 </resources>

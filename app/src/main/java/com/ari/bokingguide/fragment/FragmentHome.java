@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.ari.bokingguide.R;
+import com.ari.bokingguide.ViewDestinasiActivity;
 import com.ari.bokingguide.ViewGuideActivity;
 import com.ari.bokingguide.utils.CircleImageView;
 import com.ari.bokingguide.utils.EffectButton;
@@ -49,7 +50,7 @@ public class FragmentHome extends Fragment {
             @Override
             public void onClick(View view) {
                 btnLokasi.startAnimation(anim);
-                Toast.makeText(getContext(), "2", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), ViewDestinasiActivity.class));
             }
         });
 

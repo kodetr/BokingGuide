@@ -12,7 +12,7 @@
         android:title="@string/title_guide" />
 
     <item
-        android:id="@+id/navigation_lokasi"
+        android:id="@+id/navigation_destinasi"
         android:icon="@drawable/ic_lokasi"
-        android:title="@string/title_lokasi" />
+        android:title="@string/title_destinasi" />
 </menu>
