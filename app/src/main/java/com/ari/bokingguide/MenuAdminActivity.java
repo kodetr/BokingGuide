@@ -77,9 +77,6 @@ public class MenuAdminActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             Keluar();
             return true;
-        } else if (id == R.id.action_notif) {
-
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
