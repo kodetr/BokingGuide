@@ -31,4 +31,7 @@
     <string name="pesan_tgl_mulai">Tanggal mulai belum diisi!</string>
     <string name="pesan_tgl_akhir">Tanggal akhir belum diisi!</string>
     <string name="berikutnya">Berikutnya</string>
+    <string name="pesan_transaksi">Transaksi melalui Bank Mandiri</string>
+    <string name="confirmasi">Confirmasi</string>
+    <string name="informasi_boking">Jika pembayaran sudah ditranfer silahkan tekan confirmasi di bawah, kemudian tunggu SMS balasan yang dikirim melalu telphone anda. \n\n Jika sudah menerima SMS balasan silahkan cek bagian Menu Guide untuk informasi Boking.</string>
 </resources>

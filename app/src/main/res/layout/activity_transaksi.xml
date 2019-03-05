@@ -39,29 +39,81 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="30dp" />
+                    android:gravity="center"
+                    android:text="BIAYA BOKING"
+                    android:textColor="@android:color/black"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvBiaya"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
                     android:gravity="center"
                     android:text="Rp. 50.000"
                     android:textSize="35dp" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/pesan_transaksi"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:text="No Rekening : 2322 4444 12344 5342"
+                    android:textColor="@android:color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Atas Nama  : Ari Susilo"
+                    android:textColor="@android:color/black"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/informasi_boking"
+                    android:textSize="15dp" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnSimpan"
+        android:id="@+id/btnConfirmasi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_shape_no_fill_bg"
-        android:text="@string/selesai"
+        android:text="@string/confirmasi"
         android:textColor="@android:color/white"
         android:textSize="18dp" />
 </RelativeLayout>
