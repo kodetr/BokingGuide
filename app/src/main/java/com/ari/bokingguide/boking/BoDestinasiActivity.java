@@ -1,5 +1,6 @@
 package com.ari.bokingguide.boking;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -23,7 +24,12 @@ import com.ari.bokingguide.network.models.Destinasi;
 import com.ari.bokingguide.utils.InternetConnection;
 
 import org.jetbrains.annotations.NotNull;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -41,10 +47,13 @@ public class BoDestinasiActivity extends AppCompatActivity implements
     private List<Destinasi> destinasiList;
     private RecyclerView mRecycleView;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private SimpleDateFormat sdf;
 
+    @SuppressLint("SimpleDateFormat")
     public BoDestinasiActivity() {
         DataProvider provider = new DataProvider();
         nService = provider.getTService();
+        sdf = new SimpleDateFormat("dd-MM-yyyy");
     }
 
     @Override
@@ -144,9 +153,18 @@ public class BoDestinasiActivity extends AppCompatActivity implements
         final Destinasi selectDestinasi = adapterAdminDestinasi.getDestinasi(position);
         Intent intent = new Intent(this, BoTransaksiBiayaActivity.class);
 
+        try {
+            Date dateMulai = sdf.parse(getIntent().getStringExtra("tglMulai"));
+            Date dateAkhir = sdf.parse(getIntent().getStringExtra("tglAkhir"));
+            int days = Days.daysBetween(new LocalDate(dateMulai), new LocalDate(dateAkhir)).getDays();
+            intent.putExtra("jumlah_hari", days);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         intent.putExtra("nama", getIntent().getStringExtra("nama"));
         intent.putExtra("umur", getIntent().getIntExtra("umur", 0));
-        intent.putExtra("bahasa",getIntent().getStringExtra("bahasa"));
+        intent.putExtra("bahasa", getIntent().getStringExtra("bahasa"));
         intent.putExtra("kontak", getIntent().getStringExtra("kontak"));
         intent.putExtra("nama_guide", getIntent().getStringExtra("nama_guide"));
         intent.putExtra("tglMulai", getIntent().getStringExtra("tglMulai"));

@@ -41,7 +41,10 @@ public interface DataService {
             @Field("foto") String foto,
             @Field("nama_guide") String nama_guide,
             @Field("tgl_mulai") String tgl_mulai,
-            @Field("tgl_akhir") String tgl_akhir
+            @Field("tgl_akhir") String tgl_akhir,
+            @Field("tujuan_wisata") String tujuan_wisata,
+            @Field("biaya") String biaya,
+            @Field("status") int status
     );
 
     @GET("delete_wisatawan.php")
