@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,14 @@ import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.utils.InternetConnection;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DecimalFormat;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BoTransaksiBiayaActivity extends AppCompatActivity {
 
@@ -64,44 +72,44 @@ public class BoTransaksiBiayaActivity extends AppCompatActivity {
     }
 
     private void btnSimpan() {
-//        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
-//        prgDialog.setMessage("Tunggu sebentar...!!!");
-//        prgDialog.setCancelable(false);
-//        prgDialog.show();
-//
-//        String nama = getIntent().getStringExtra("nama");
-//        int umur = getIntent().getIntExtra("umur", 0);
-//        String bahasa = getIntent().getStringExtra("bahasa");
-//        String kontak = getIntent().getStringExtra("kontak");
-//        String nama_guide = getIntent().getStringExtra("nama_guide");
+        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
+
+        String nama = getIntent().getStringExtra("nama");
+        int umur = getIntent().getIntExtra("umur", 0);
+        String bahasa = getIntent().getStringExtra("bahasa");
+        String kontak = getIntent().getStringExtra("kontak");
+        String nama_guide = getIntent().getStringExtra("nama_guide");
         String tglMulai = getIntent().getStringExtra("tglMulai");
         String tglAkhir = getIntent().getStringExtra("tglAkhir");
 
-//        String jk = getIntent().getStringExtra("jk");
-//        String foto = getIntent().getStringExtra("foto");
-//        String agama = getIntent().getStringExtra("agama");
-//        String tujuan_wisatawan = getIntent().getStringExtra("tujuan_wisatawan");
-//        String biaya = "Rp." + tvBiaya.getText().toString();
-//
-//        Call<ResponseBody> call = nService.add_wisatawan(nama, umur, agama, bahasa, jk, kontak, foto, nama_guide, tglMulai, tglAkhir, tujuan_wisatawan, biaya, 1);
-//        call.enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-//                if (response.isSuccessful()) {
-//                    prgDialog.dismiss();
-//                    Toast.makeText(BoTransaksiBiayaActivity.this, getString(R.string.simpan_berhasil), Toast.LENGTH_LONG).show();
-//                } else {
-//                    prgDialog.dismiss();
-//                    Toast.makeText(BoTransaksiBiayaActivity.this, getString(R.string.simpan_gagal), Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-//                prgDialog.dismiss();
-//                Log.e("ERRR", t.getMessage());
-//            }
-//        });
+        String jk = getIntent().getStringExtra("jk");
+        String foto = getIntent().getStringExtra("foto");
+        String agama = getIntent().getStringExtra("agama");
+        String tujuan_wisatawan = getIntent().getStringExtra("tujuan_wisatawan");
+        String biaya = tvBiaya.getText().toString();
+
+        Call<ResponseBody> call = nService.add_wisatawan(nama, umur, agama, bahasa, jk, kontak, foto, nama_guide, tglMulai, tglAkhir, tujuan_wisatawan, biaya, 1);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    prgDialog.dismiss();
+                    Toast.makeText(BoTransaksiBiayaActivity.this, getString(R.string.simpan_berhasil), Toast.LENGTH_LONG).show();
+                } else {
+                    prgDialog.dismiss();
+                    Toast.makeText(BoTransaksiBiayaActivity.this, getString(R.string.simpan_gagal), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                prgDialog.dismiss();
+                Log.e("ERRR", t.getMessage());
+            }
+        });
     }
 
     @Override
