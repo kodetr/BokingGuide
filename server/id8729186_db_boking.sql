@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 27, 2019 at 03:38 AM
+-- Generation Time: Mar 05, 2019 at 01:32 AM
 -- Server version: 10.3.13-MariaDB
 -- PHP Version: 7.3.2
 
@@ -43,7 +43,8 @@ CREATE TABLE `tbl_destinasi` (
 --
 
 INSERT INTO `tbl_destinasi` (`id`, `nama`, `jenis`, `lokasi`, `keterangan`, `foto`, `vidio`) VALUES
-(2, 'vvv', 'Air Tejun', 'g', 'g', '2.jpg', '2.mp4');
+(2, 'vvv', 'Air Tejun', 'g', 'g', '2.jpg', '2.mp4'),
+(3, 'tt', 'Air Tejun', 'fh', 'hhb', 'default/default.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -64,6 +65,7 @@ CREATE TABLE `tbl_guide` (
   `vidio` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `rating` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `jmh_rating` int(10) NOT NULL DEFAULT 0,
+  `jmh_num` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
   `tag` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -71,9 +73,9 @@ CREATE TABLE `tbl_guide` (
 -- Dumping data for table `tbl_guide`
 --
 
-INSERT INTO `tbl_guide` (`id`, `nama`, `umur`, `agama`, `bahasa`, `kontak`, `lokasi`, `jk`, `foto`, `vidio`, `rating`, `jmh_rating`, `tag`) VALUES
-(2, 'heru santo', 21, 'Islam', 'indonesia', '87237238', 'mataram', 'Pria', 'default/default.png', '2.mp4', '3', 1, 0),
-(6, 'tuli', 21, 'Islam', 'indo', '082686', 'mataram', 'Pria', '6.jpg', NULL, '0', 0, 0);
+INSERT INTO `tbl_guide` (`id`, `nama`, `umur`, `agama`, `bahasa`, `kontak`, `lokasi`, `jk`, `foto`, `vidio`, `rating`, `jmh_rating`, `jmh_num`, `tag`) VALUES
+(2, 'heru santo', 21, 'Islam', 'indonesia', '87237238', 'mataram', 'Pria', 'default/default.png', '2.mp4', '4.0', 7, '28.0', 0),
+(6, 'tuli', 21, 'Islam', 'indo', '082686', 'mataram', 'Pria', '6.jpg', NULL, '3.5', 6, '21.0', 1);
 
 -- --------------------------------------------------------
 
@@ -89,17 +91,21 @@ CREATE TABLE `tbl_wisatawan` (
   `bahasa` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `jk` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `kontak` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
-  `foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'default/default.png'
+  `foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'default/default.png',
+  `nama_guide` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `tgl_mulai` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `tgl_akhir` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `tujuan_wisata` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `biaya` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` int(5) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_wisatawan`
 --
 
-INSERT INTO `tbl_wisatawan` (`id`, `nama`, `umur`, `agama`, `bahasa`, `jk`, `kontak`, `foto`) VALUES
-(1, 'Tanwir', 21, 'islam', 'indonesia', 'laki-laki', '08534', '1.jpg'),
-(9, 'julainto', 45, 'Islam', 'indonesia', 'Perempuan', '081345678097', 'default/default.png'),
-(11, 'uki wijaya sari', 12, 'Hindu', 'indonesiaa', 'Wanita', '08256555552', 'default/default.png');
+INSERT INTO `tbl_wisatawan` (`id`, `nama`, `umur`, `agama`, `bahasa`, `jk`, `kontak`, `foto`, `nama_guide`, `tgl_mulai`, `tgl_akhir`, `tujuan_wisata`, `biaya`, `status`) VALUES
+(15, 'yy', 22, 'Islam', 'uu', 'Pria', '333', 'default/default.png', 'heru santo', '5-2-2019', '30-2-2019', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -156,7 +162,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tbl_destinasi`
 --
 ALTER TABLE `tbl_destinasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_guide`
@@ -168,7 +174,7 @@ ALTER TABLE `tbl_guide`
 -- AUTO_INCREMENT for table `tbl_wisatawan`
 --
 ALTER TABLE `tbl_wisatawan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`

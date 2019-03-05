@@ -29,6 +29,7 @@
        "foto"=>$url_foto_guide."".$row['foto'],
        "vidio"=>$url_vidio."".$row['vidio'],
        "jmh_rating"=>$row['jmh_rating'],
+       "jmh_num"=>$row['jmh_num'],
        "rating"=>$row['rating'],
        "tag"=>$row['tag'],
      ));
