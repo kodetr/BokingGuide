@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/button_shape_no_fill_bg"
-                    android:text="@string/selesai"
+                    android:text="@string/berikutnya"
                     android:textColor="@android:color/white"
                     android:textSize="18dp" />
             </LinearLayout>

@@ -24,8 +24,7 @@ public class SpleshActivity extends AppCompatActivity {
                     e.printStackTrace();
                 } finally {
                     finish();
-                    startActivity(new Intent(SpleshActivity.this, MainActivity.class));
-
+                    startActivity(new Intent(SpleshActivity.this, MenuActivity.class));
                 }
 
             }

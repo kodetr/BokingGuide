@@ -2,12 +2,11 @@ package com.ari.bokingguide.boking;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,18 +19,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ari.bokingguide.R;
-import com.ari.bokingguide.network.DataProvider;
-import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.utils.InternetConnection;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Calendar;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class BoWisatawanActivity extends AppCompatActivity {
 
@@ -39,18 +29,9 @@ public class BoWisatawanActivity extends AppCompatActivity {
     private EditText etNama, etUmur, etBahasa, etKontak, etNamaGuide, etTglMulai, etTglAkhir;
     private Spinner spAgama;
     private RadioGroup rgKelamin;
-
-    private DataService nService;
-    private ProgressDialog prgDialog;
-
     private DatePickerDialog TanggalMulai;
     private DatePickerDialog TanggalAkhir;
     private Calendar calendar;
-
-    public BoWisatawanActivity() {
-        DataProvider provider = new DataProvider();
-        nService = provider.getTService();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,15 +142,9 @@ public class BoWisatawanActivity extends AppCompatActivity {
         } else {
             btnSimpan();
         }
-
     }
 
     private void btnSimpan() {
-        prgDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
-        prgDialog.setMessage("Tunggu sebentar...!!!");
-        prgDialog.setCancelable(false);
-        prgDialog.show();
-
         String nama = etNama.getText().toString();
         int umur = Integer.valueOf(etUmur.getText().toString());
         String bahasa = etBahasa.getText().toString();
@@ -181,31 +156,23 @@ public class BoWisatawanActivity extends AppCompatActivity {
         int id = rgKelamin.getCheckedRadioButtonId();
         RadioButton rbjk = findViewById(id);
         String jk = rbjk.getText().toString();
-
-        String agama = spAgama.getSelectedItem().toString();
         String foto = "default/default.png";
 
-        Call<ResponseBody> call = nService.add_wisatawan(nama, umur, agama, bahasa, jk, kontak, foto, nama_guide, tglMulai, tglAkhir);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    prgDialog.dismiss();
-                    Toast.makeText(BoWisatawanActivity.this, getString(R.string.simpan_berhasil), Toast.LENGTH_LONG).show();
-                } else {
-                    prgDialog.dismiss();
-                    Toast.makeText(BoWisatawanActivity.this, getString(R.string.simpan_gagal), Toast.LENGTH_LONG).show();
-                }
-            }
+        String agama = spAgama.getSelectedItem().toString();
 
-            @Override
-            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                prgDialog.dismiss();
-                Log.e("ERRR", t.getMessage());
-            }
-        });
+        Intent intent = new Intent(this, BoDestinasiActivity.class);
+        intent.putExtra("nama", nama);
+        intent.putExtra("umur", umur);
+        intent.putExtra("bahasa", bahasa);
+        intent.putExtra("kontak", kontak);
+        intent.putExtra("nama_guide", nama_guide);
+        intent.putExtra("tglMulai", tglMulai);
+        intent.putExtra("tglAkhir", tglAkhir);
+        intent.putExtra("jk", jk);
+        intent.putExtra("foto", foto);
+        intent.putExtra("agama", agama);
+        startActivity(intent);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

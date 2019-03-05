@@ -28,6 +28,12 @@
             android:name=".boking.BoWisatawanActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".boking.BoDestinasiActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".boking.BoTransaksiBiayaActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".AddGuideActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -48,8 +54,6 @@
         <activity
             android:name=".UploadVidioGuideActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".MainActivity" />
 
         <activity
             android:name=".ViewGuideActivity"
