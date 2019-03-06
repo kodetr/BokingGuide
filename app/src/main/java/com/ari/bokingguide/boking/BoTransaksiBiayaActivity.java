@@ -84,7 +84,6 @@ public class BoTransaksiBiayaActivity extends AppCompatActivity {
         String nama_guide = getIntent().getStringExtra("nama_guide");
         String tglMulai = getIntent().getStringExtra("tglMulai");
         String tglAkhir = getIntent().getStringExtra("tglAkhir");
-
         String jk = getIntent().getStringExtra("jk");
         String foto = getIntent().getStringExtra("foto");
         String agama = getIntent().getStringExtra("agama");
