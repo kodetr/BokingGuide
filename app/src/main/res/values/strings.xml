@@ -33,5 +33,5 @@
     <string name="berikutnya">Berikutnya</string>
     <string name="pesan_transaksi">Transaksi melalui Bank Mandiri</string>
     <string name="confirmasi">Confirmasi</string>
-    <string name="informasi_boking">Jika pembayaran sudah ditranfer silahkan tekan confirmasi di bawah, kemudian tunggu SMS balasan yang dikirim melalu telphone anda. \n\n Jika sudah menerima SMS balasan silahkan cek bagian Menu Guide untuk informasi Boking.</string>
+    <string name="informasi_boking">Jika pembayaran sudah ditranfer silahkan tekan confirmasi di bawah, kemudian tunggu SMS balasan yang dikirim melalui handphone anda. \n\nJika sudah menerima SMS balasan silahkan cek bagian Menu Guide untuk informasi Boking.</string>
 </resources>
