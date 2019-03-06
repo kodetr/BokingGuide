@@ -9,6 +9,12 @@ public class Wisatawan {
     private String jk;
     private String kontak;
     private String foto;
+    private String nama_guide;
+    private String tgl_mulai;
+    private String tgl_akhir;
+    private String tujuan_wisata;
+    private String biaya;
+    private int status;
     private String pesan;
 
     public int getId() {
@@ -45,5 +51,29 @@ public class Wisatawan {
 
     public String getPesan() {
         return pesan;
+    }
+
+    public String getNama_guide() {
+        return nama_guide;
+    }
+
+    public String getTgl_mulai() {
+        return tgl_mulai;
+    }
+
+    public String getTgl_akhir() {
+        return tgl_akhir;
+    }
+
+    public String getTujuan_wisata() {
+        return tujuan_wisata;
+    }
+
+    public String getBiaya() {
+        return biaya;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }

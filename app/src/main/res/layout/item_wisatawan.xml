@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <RelativeLayout
+        android:id="@+id/llContainerStatus"
         android:layout_width="match_parent"
         android:layout_height="130dp">
 
@@ -157,5 +158,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="80dp"
             android:background="@android:color/darker_gray" />
+
     </RelativeLayout>
 </LinearLayout>

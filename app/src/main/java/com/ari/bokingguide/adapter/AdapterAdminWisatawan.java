@@ -1,10 +1,13 @@
 package com.ari.bokingguide.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.network.models.Wisatawan;
@@ -55,6 +58,14 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true))
                 .into(holder.ivFoto);
+
+        Toast.makeText(holder.itemView.getContext(), String.valueOf(getWisatawan.getStatus()), Toast.LENGTH_SHORT).show();
+
+        if (getWisatawan.getStatus() == 1) {
+            holder.llContainerStatus.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorProses));
+        } else {
+            holder.llContainerStatus.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorStuju));
+        }
     }
 
     public void addWisatawan(Wisatawan wisatawan) {
@@ -70,6 +81,7 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
 
         private TextView tvNama, tvUmur, tvAgama, tvBahasa, tvKelamin, tvKontak;
         private CircleImageView ivFoto;
+        private RelativeLayout llContainerStatus;
 
         public Holder(View itemView) {
             super(itemView);
@@ -80,6 +92,7 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
             tvKontak = itemView.findViewById(R.id.tvKontak);
             tvKelamin = itemView.findViewById(R.id.tvKelamin);
             ivFoto = itemView.findViewById(R.id.ivFoto);
+            llContainerStatus = itemView.findViewById(R.id.llContainerStatus);
             itemView.setOnClickListener(this);
         }
 

@@ -41,7 +41,7 @@ import retrofit2.Response;
 public class FragmentWisatawan extends Fragment implements
         AdapterAdminWisatawan.MClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private String[] dialogitem = {"Hapus"};
+    private String[] dialogitem = {"Status","Hapus"};
     private DataService nService;
     private Wisatawan wisatawan;
     private AdapterAdminWisatawan adapterAdminWisatawan;
@@ -205,6 +205,9 @@ public class FragmentWisatawan extends Fragment implements
             public void onClick(DialogInterface dialog, int item) {
                 switch (item) {
                     case 0:
+
+                        break;
+                    case 1:
                         delete(selectedwisatawan.getId());
                         break;
                 }
