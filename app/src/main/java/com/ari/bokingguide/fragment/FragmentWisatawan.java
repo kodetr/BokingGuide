@@ -41,7 +41,7 @@ import retrofit2.Response;
 public class FragmentWisatawan extends Fragment implements
         AdapterAdminWisatawan.MClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private String[] dialogitem = {"Status","Hapus"};
+    private String[] dialogitem = {"Status", "Hapus"};
     private DataService nService;
     private Wisatawan wisatawan;
     private AdapterAdminWisatawan adapterAdminWisatawan;
@@ -205,7 +205,23 @@ public class FragmentWisatawan extends Fragment implements
             public void onClick(DialogInterface dialog, int item) {
                 switch (item) {
                     case 0:
-
+                        AlertDialog.Builder status = new AlertDialog.Builder(getActivity())
+                                .setTitle("")
+                                .setPositiveButton("Disetujui",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                prosesStatus(selectedwisatawan.getId());
+                                            }
+                                        }
+                                )
+                                .setNegativeButton("Batal",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                dialog.dismiss();
+                                            }
+                                        }
+                                );
+                        status.show();
                         break;
                     case 1:
                         delete(selectedwisatawan.getId());
@@ -215,6 +231,34 @@ public class FragmentWisatawan extends Fragment implements
         });
 
         builder.show();
+    }
+
+    private void prosesStatus(int id) {
+        prgDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
+        prgDialog.setMessage("Tunggu sebentar...!!!");
+        prgDialog.setCancelable(false);
+        prgDialog.show();
+
+        Call<ResponseBody> call = nService.update_guide(id, 1);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    prgDialog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.proses_berhasil), Toast.LENGTH_LONG).show();
+                    showData();
+                } else {
+                    prgDialog.dismiss();
+                    Toast.makeText(getContext(), getString(R.string.proses_gagal), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
+                prgDialog.dismiss();
+                Log.e("ERRR", t.getMessage());
+            }
+        });
     }
 
     private void delete(int id) {

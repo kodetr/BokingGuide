@@ -37,4 +37,6 @@
     <string name="pesan_biaya">Dengan ketentuan biaya Rp.450.000.00 perhari dikalikan dengan Batas Akhir sehingga biaya yang harus dibayar sebesar :</string>
     <string name="transaksi_berhasil">Transaksi berhasil</string>
     <string name="transaksi_gagal">Transaksi gagal</string>
+    <string name="proses_berhasil">Berhasil diproses</string>
+    <string name="proses_gagal">Gagal diproses</string>
 </resources>

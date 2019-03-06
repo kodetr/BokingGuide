@@ -50,6 +50,15 @@ public interface DataService {
     @GET("delete_wisatawan.php")
     Call<ResponseBody> delete_wisatawan(@Query("id") int id);
 
+
+    @FormUrlEncoded
+    @POST("update_wisatawan_status.php")
+    Call<ResponseBody> update_guide(
+            @Query("id") int id,
+            @Field("status") int status
+    );
+
+
     @Multipart
     @POST("upload_foto_wisatawan.php")
     Call<ResponseBody> upload_foto_wisatawan(@Query("id") int id, @Part MultipartBody.Part foto);
