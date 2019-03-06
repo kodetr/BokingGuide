@@ -49,7 +49,6 @@ public class BoTransaksiBiayaActivity extends AppCompatActivity {
 
         tvBiaya = findViewById(R.id.tvBiaya);
 
-
         DecimalFormat formatter = new DecimalFormat("###,###,##0.00");
         String biaya = String.valueOf(getIntent().getIntExtra("jumlah_hari", 0) * 450000);
         tvBiaya.setText("Rp." + formatter.format(Double.parseDouble(biaya)));
@@ -96,10 +95,10 @@ public class BoTransaksiBiayaActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     prgDialog.dismiss();
-                    Toast.makeText(BoTransaksiBiayaActivity.this, getString(R.string.simpan_berhasil), Toast.LENGTH_LONG).show();
+                    Toast.makeText(BoTransaksiBiayaActivity.this, getString(R.string.transaksi_berhasil), Toast.LENGTH_LONG).show();
                 } else {
                     prgDialog.dismiss();
-                    Toast.makeText(BoTransaksiBiayaActivity.this, getString(R.string.simpan_gagal), Toast.LENGTH_LONG).show();
+                    Toast.makeText(BoTransaksiBiayaActivity.this, getString(R.string.transaksi_gagal), Toast.LENGTH_LONG).show();
                 }
             }
 

@@ -1,13 +1,12 @@
 package com.ari.bokingguide.adapter;
 
-import android.graphics.Color;
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.network.models.Wisatawan;
@@ -17,18 +16,26 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import org.jetbrains.annotations.NotNull;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisatawan.Holder> {
 
     private final MClickListener nListener;
     private List<Wisatawan> lwisatawan;
+    private SimpleDateFormat sdf;
 
+    @SuppressLint("SimpleDateFormat")
     public AdapterAdminWisatawan(MClickListener listener) {
         lwisatawan = new ArrayList<>();
         nListener = listener;
+        sdf = new SimpleDateFormat("dd-MM-yyyy");
     }
 
     @Override
@@ -43,6 +50,7 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NotNull Holder holder, int position) {
         Wisatawan getWisatawan = lwisatawan.get(position);
@@ -52,6 +60,20 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
         holder.tvBahasa.setText(getWisatawan.getBahasa());
         holder.tvKelamin.setText(getWisatawan.getJk());
         holder.tvKontak.setText(getWisatawan.getKontak());
+        holder.tvTujuanWisata.setText(getWisatawan.getTujuan_wisata());
+        holder.tvTglMulai.setText(getWisatawan.getTgl_mulai());
+        holder.tvTglAkhir.setText(getWisatawan.getTgl_akhir());
+        holder.tvBiaya.setText(getWisatawan.getBiaya());
+
+        try {
+            Date dateMulai = sdf.parse(getWisatawan.getTgl_mulai());
+            Date dateAkhir = sdf.parse(getWisatawan.getTgl_akhir());
+            int days = Days.daysBetween(new LocalDate(dateMulai), new LocalDate(dateAkhir)).getDays();
+            holder.tvBatasWaktu.setText(String.valueOf(days) + " Hari Lagi");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Glide.with(holder.itemView.getContext())
                 .load(getWisatawan.getFoto())
                 .apply(new RequestOptions()
@@ -59,12 +81,10 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
                         .skipMemoryCache(true))
                 .into(holder.ivFoto);
 
-        Toast.makeText(holder.itemView.getContext(), String.valueOf(getWisatawan.getStatus()), Toast.LENGTH_SHORT).show();
-
         if (getWisatawan.getStatus() == 1) {
-            holder.llContainerStatus.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorProses));
+            holder.ivStatus.setImageDrawable(holder.itemView.getResources().getDrawable(R.drawable.ic_status_proses));
         } else {
-            holder.llContainerStatus.setBackgroundColor(holder.itemView.getResources().getColor(R.color.colorStuju));
+            holder.ivStatus.setImageDrawable(holder.itemView.getResources().getDrawable(R.drawable.ic_status_berhasil));
         }
     }
 
@@ -79,9 +99,9 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tvNama, tvUmur, tvAgama, tvBahasa, tvKelamin, tvKontak;
+        private TextView tvNama, tvUmur, tvAgama, tvBahasa, tvKelamin, tvKontak, tvTujuanWisata, tvTglMulai, tvTglAkhir, tvBiaya, tvBatasWaktu;
         private CircleImageView ivFoto;
-        private RelativeLayout llContainerStatus;
+        private ImageView ivStatus;
 
         public Holder(View itemView) {
             super(itemView);
@@ -92,7 +112,12 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
             tvKontak = itemView.findViewById(R.id.tvKontak);
             tvKelamin = itemView.findViewById(R.id.tvKelamin);
             ivFoto = itemView.findViewById(R.id.ivFoto);
-            llContainerStatus = itemView.findViewById(R.id.llContainerStatus);
+            ivStatus = itemView.findViewById(R.id.ivStatus);
+            tvTujuanWisata = itemView.findViewById(R.id.tvTujuanWisata);
+            tvTglMulai = itemView.findViewById(R.id.tvTglMulai);
+            tvTglAkhir = itemView.findViewById(R.id.tvTglAkhir);
+            tvBiaya = itemView.findViewById(R.id.tvBiaya);
+            tvBatasWaktu = itemView.findViewById(R.id.tvBatasWaktu);
             itemView.setOnClickListener(this);
         }
 

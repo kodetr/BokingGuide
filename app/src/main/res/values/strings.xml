@@ -34,4 +34,7 @@
     <string name="pesan_transaksi">Transaksi melalui Bank Mandiri</string>
     <string name="confirmasi">Confirmasi</string>
     <string name="informasi_boking">Jika pembayaran sudah ditranfer silahkan tekan confirmasi di bawah, kemudian tunggu SMS balasan yang dikirim melalui handphone anda. \n\nJika sudah menerima SMS balasan silahkan cek bagian Menu Guide untuk informasi Boking.</string>
+    <string name="pesan_biaya">Dengan ketentuan biaya Rp.450.000.00 perhari dikalikan dengan Batas Akhir sehingga biaya yang harus dibayar sebesar :</string>
+    <string name="transaksi_berhasil">Transaksi berhasil</string>
+    <string name="transaksi_gagal">Transaksi gagal</string>
 </resources>
