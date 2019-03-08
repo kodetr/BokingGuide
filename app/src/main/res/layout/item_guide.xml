@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="DIBOKING"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 android:textSize="30dp"
                 android:textStyle="bold" />
 

@@ -65,9 +65,6 @@ public interface DataService {
             @Field("tag") int tag
     );
 
-    @GET("view_wisatawan_id_guide.php")
-    Call<List<Wisatawan>> view_wisatawan_id_guide(@Query("id") int id);
-
     @Multipart
     @POST("upload_foto_wisatawan.php")
     Call<ResponseBody> upload_foto_wisatawan(@Query("id") int id, @Part MultipartBody.Part foto);

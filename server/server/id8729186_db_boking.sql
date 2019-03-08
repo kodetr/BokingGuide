@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 05, 2019 at 01:32 AM
+-- Generation Time: Mar 08, 2019 at 01:41 AM
 -- Server version: 10.3.13-MariaDB
 -- PHP Version: 7.3.2
 
@@ -74,8 +74,9 @@ CREATE TABLE `tbl_guide` (
 --
 
 INSERT INTO `tbl_guide` (`id`, `nama`, `umur`, `agama`, `bahasa`, `kontak`, `lokasi`, `jk`, `foto`, `vidio`, `rating`, `jmh_rating`, `jmh_num`, `tag`) VALUES
-(2, 'heru santo', 21, 'Islam', 'indonesia', '87237238', 'mataram', 'Pria', 'default/default.png', '2.mp4', '4.0', 7, '28.0', 0),
-(6, 'tuli', 21, 'Islam', 'indo', '082686', 'mataram', 'Pria', '6.jpg', NULL, '3.5', 6, '21.0', 1);
+(2, 'heru santo', 21, 'Islam', 'indonesia', '87237238', 'mataram', 'Pria', 'default/default.png', '2.mp4', '4.0', 7, '28.0', 1),
+(6, 'tuli', 21, 'Islam', 'indo', '082686', 'mataram', 'Pria', '6.jpg', NULL, '3.5', 6, '21.0', 1),
+(7, 'yuli', 21, 'Islam', 'indonesia', '0821948704', 'mataram', 'Wanita', 'default/default.png', NULL, '0', 0, '0', 0);
 
 -- --------------------------------------------------------
 
@@ -93,19 +94,21 @@ CREATE TABLE `tbl_wisatawan` (
   `kontak` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'default/default.png',
   `nama_guide` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `tgl_mulai` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `tgl_akhir` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `tgl_mulai` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tgl_akhir` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `tujuan_wisata` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `biaya` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` int(5) NOT NULL DEFAULT 0
+  `biaya` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` int(5) NOT NULL DEFAULT 0,
+  `id_guide` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `tbl_wisatawan`
 --
 
-INSERT INTO `tbl_wisatawan` (`id`, `nama`, `umur`, `agama`, `bahasa`, `jk`, `kontak`, `foto`, `nama_guide`, `tgl_mulai`, `tgl_akhir`, `tujuan_wisata`, `biaya`, `status`) VALUES
-(15, 'yy', 22, 'Islam', 'uu', 'Pria', '333', 'default/default.png', 'heru santo', '5-2-2019', '30-2-2019', NULL, NULL, 0);
+INSERT INTO `tbl_wisatawan` (`id`, `nama`, `umur`, `agama`, `bahasa`, `jk`, `kontak`, `foto`, `nama_guide`, `tgl_mulai`, `tgl_akhir`, `tujuan_wisata`, `biaya`, `status`, `id_guide`) VALUES
+(18, 'r', 25, 'Islam', 'hsjs', 'Pria', '56666', 'default/default.png', 'tuli', '5-2-2019', '9-2-2019', 'g', 'Rp.1.800.000,00', 1, 6),
+(19, 'heru safrullah', 25, 'Islam', 'indonesia', 'Pria', '08213164549', 'default/default.png', 'heru santo', '8-2-2019', '31-2-2019', 'g', 'Rp.10.350.000,00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -146,7 +149,8 @@ ALTER TABLE `tbl_guide`
 -- Indexes for table `tbl_wisatawan`
 --
 ALTER TABLE `tbl_wisatawan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_guide` (`id_guide`);
 
 --
 -- Indexes for table `users`
@@ -168,19 +172,29 @@ ALTER TABLE `tbl_destinasi`
 -- AUTO_INCREMENT for table `tbl_guide`
 --
 ALTER TABLE `tbl_guide`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_wisatawan`
 --
 ALTER TABLE `tbl_wisatawan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_wisatawan`
+--
+ALTER TABLE `tbl_wisatawan`
+  ADD CONSTRAINT `fk_guide` FOREIGN KEY (`id_guide`) REFERENCES `tbl_guide` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

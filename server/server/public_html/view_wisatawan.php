@@ -25,7 +25,14 @@
        "bahasa"=>$row['bahasa'],
        "jk"=>$row['jk'],
        "kontak"=>$row['kontak'],
-       "foto"=>$url_foto_wisatawan."".$row['foto']
+       "foto"=>$url_foto_wisatawan."".$row['foto'],
+       "nama_guide"=>$row['nama_guide'],
+       "tgl_mulai"=>$row['tgl_mulai'],
+       "tgl_akhir"=>$row['tgl_akhir'],
+       "tujuan_wisata"=>$row['tujuan_wisata'],
+       "biaya"=>$row['biaya'],
+       "status"=>$row['status'],
+       "id_guide"=>$row['id_guide']
      ));
    }
 }
