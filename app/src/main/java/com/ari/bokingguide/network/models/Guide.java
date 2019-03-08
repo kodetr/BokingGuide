@@ -17,6 +17,10 @@ public class Guide {
     private int tag;
     private String pesan;
 
+    private String nama_wisatawan;
+    private String tgl_mulai;
+    private String tgl_akhir;
+
     public int getId() {
         return id;
     }
@@ -75,5 +79,17 @@ public class Guide {
 
     public String getPesan() {
         return pesan;
+    }
+
+    public String getNama_wisatawan() {
+        return nama_wisatawan;
+    }
+
+    public String getTgl_mulai() {
+        return tgl_mulai;
+    }
+
+    public String getTgl_akhir() {
+        return tgl_akhir;
     }
 }

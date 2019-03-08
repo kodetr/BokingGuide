@@ -82,10 +82,11 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
                 .into(holder.ivFoto);
 
         if (getWisatawan.getStatus() == 1) {
-            holder.ivStatus.setImageDrawable(holder.itemView.getResources().getDrawable(R.drawable.ic_status_proses));
-        } else {
             holder.ivStatus.setImageDrawable(holder.itemView.getResources().getDrawable(R.drawable.ic_status_berhasil));
+        } else {
+            holder.ivStatus.setImageDrawable(holder.itemView.getResources().getDrawable(R.drawable.ic_status_proses));
         }
+
     }
 
     public void addWisatawan(Wisatawan wisatawan) {
@@ -129,6 +130,7 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
 
     public interface MClickListener {
         void onClick(int position);
+
     }
 
     public void setFilter(List<Wisatawan> wisatawanModels) {

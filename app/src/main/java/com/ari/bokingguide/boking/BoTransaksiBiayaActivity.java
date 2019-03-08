@@ -87,9 +87,10 @@ public class BoTransaksiBiayaActivity extends AppCompatActivity {
         String foto = getIntent().getStringExtra("foto");
         String agama = getIntent().getStringExtra("agama");
         String tujuan_wisatawan = getIntent().getStringExtra("tujuan_wisatawan");
+        int id_guide = getIntent().getIntExtra("id_guide", 0);
         String biaya = tvBiaya.getText().toString();
 
-        Call<ResponseBody> call = nService.add_wisatawan(nama, umur, agama, bahasa, jk, kontak, foto, nama_guide, tglMulai, tglAkhir, tujuan_wisatawan, biaya, 0);
+        Call<ResponseBody> call = nService.add_wisatawan(nama, umur, agama, bahasa, jk, kontak, foto, nama_guide, tglMulai, tglAkhir, tujuan_wisatawan, biaya, 0, id_guide);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {

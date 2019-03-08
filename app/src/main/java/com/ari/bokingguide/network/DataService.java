@@ -44,20 +44,29 @@ public interface DataService {
             @Field("tgl_akhir") String tgl_akhir,
             @Field("tujuan_wisata") String tujuan_wisata,
             @Field("biaya") String biaya,
-            @Field("status") int status
+            @Field("status") int status,
+            @Field("id_guide") int id_guide
     );
 
     @GET("delete_wisatawan.php")
     Call<ResponseBody> delete_wisatawan(@Query("id") int id);
 
-
     @FormUrlEncoded
     @POST("update_wisatawan_status.php")
-    Call<ResponseBody> update_guide(
+    Call<ResponseBody> update_status_wisatawan(
             @Query("id") int id,
             @Field("status") int status
     );
 
+    @FormUrlEncoded
+    @POST("update_guide_status.php")
+    Call<ResponseBody> update_guide(
+            @Query("id") int id,
+            @Field("tag") int tag
+    );
+
+    @GET("view_wisatawan_id_guide.php")
+    Call<List<Wisatawan>> view_wisatawan_id_guide(@Query("id") int id);
 
     @Multipart
     @POST("upload_foto_wisatawan.php")

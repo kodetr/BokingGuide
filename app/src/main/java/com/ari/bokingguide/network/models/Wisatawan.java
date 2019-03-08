@@ -16,6 +16,7 @@ public class Wisatawan {
     private String biaya;
     private int status;
     private String pesan;
+    private int id_guide;
 
     public int getId() {
         return id;
@@ -75,5 +76,9 @@ public class Wisatawan {
 
     public int getStatus() {
         return status;
+    }
+
+    public int getId_guide() {
+        return id_guide;
     }
 }

@@ -206,15 +206,15 @@ public class FragmentWisatawan extends Fragment implements
                 switch (item) {
                     case 0:
                         AlertDialog.Builder status = new AlertDialog.Builder(getActivity())
-                                .setTitle("")
-                                .setPositiveButton("Disetujui",
+                                .setTitle("Yakin ingin disetujui!")
+                                .setPositiveButton("Iya",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int whichButton) {
-                                                prosesStatus(selectedwisatawan.getId());
+                                                prosesStatus(selectedwisatawan.getId(), selectedwisatawan.getId_guide());
                                             }
                                         }
                                 )
-                                .setNegativeButton("Batal",
+                                .setNegativeButton("Tidak",
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int whichButton) {
                                                 dialog.dismiss();
@@ -233,13 +233,15 @@ public class FragmentWisatawan extends Fragment implements
         builder.show();
     }
 
-    private void prosesStatus(int id) {
+    private void prosesStatus(int id, int id_guide) {
         prgDialog = new ProgressDialog(getContext(), R.style.MyAlertDialogStyle);
         prgDialog.setMessage("Tunggu sebentar...!!!");
         prgDialog.setCancelable(false);
         prgDialog.show();
 
-        Call<ResponseBody> call = nService.update_guide(id, 1);
+        prosesTagGuide(id_guide);
+
+        Call<ResponseBody> call = nService.update_status_wisatawan(id, 1);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
@@ -257,6 +259,19 @@ public class FragmentWisatawan extends Fragment implements
             public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 prgDialog.dismiss();
                 Log.e("ERRR", t.getMessage());
+            }
+        });
+    }
+
+    private void prosesTagGuide(int id) {
+        Call<ResponseBody> call = nService.update_guide(id, 1);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
             }
         });
     }

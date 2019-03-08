@@ -173,6 +173,7 @@ public class BoDestinasiActivity extends AppCompatActivity implements
         intent.putExtra("foto", getIntent().getStringExtra("foto"));
         intent.putExtra("agama", getIntent().getStringExtra("agama"));
         intent.putExtra("tujuan_wisatawan", selectDestinasi.getLokasi());
+        intent.putExtra("id_guide", getIntent().getIntExtra("id_guide", 0));
         startActivity(intent);
     }
 }

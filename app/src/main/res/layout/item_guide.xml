@@ -237,7 +237,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:padding="5dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="match_parent"
@@ -270,7 +270,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Tanwir"
                     android:textColor="@android:color/white"
                     android:textSize="15dp" />
 
@@ -279,7 +278,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="20 Hari Lagi"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>

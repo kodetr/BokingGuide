@@ -1,5 +1,6 @@
 package com.ari.bokingguide.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ari.bokingguide.R;
+import com.ari.bokingguide.network.DataProvider;
+import com.ari.bokingguide.network.DataService;
 import com.ari.bokingguide.network.models.Guide;
 import com.ari.bokingguide.utils.CircleImageView;
 import com.bumptech.glide.Glide;
@@ -16,18 +19,28 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import org.jetbrains.annotations.NotNull;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 
 public class AdapterGuide extends RecyclerView.Adapter<AdapterGuide.Holder> {
 
     private final MClickListener nListener;
     private List<Guide> lguide;
+    private DataService nService;
 
     public AdapterGuide(MClickListener listener) {
         lguide = new ArrayList<>();
         nListener = listener;
+
+        DataProvider provider = new DataProvider();
+        nService = provider.getTService();
     }
 
     @Override
@@ -41,8 +54,9 @@ public class AdapterGuide extends RecyclerView.Adapter<AdapterGuide.Holder> {
         return new Holder(row);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NotNull Holder holder, int position) {
+    public void onBindViewHolder(@NotNull final Holder holder, int position) {
         Guide getGuide = lguide.get(position);
         holder.tvNama.setText(getGuide.getNama());
         holder.tvUmur.setText(String.valueOf(getGuide.getUmur()));
@@ -70,6 +84,17 @@ public class AdapterGuide extends RecyclerView.Adapter<AdapterGuide.Holder> {
             holder.llContainerBoking.setVisibility(View.VISIBLE);
             holder.containerA.setEnabled(false);
             holder.containerB.setVisibility(View.VISIBLE);
+
+            holder.tvNamaWisatawan.setText(getGuide.getNama_wisatawan());
+            try {
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                Date dateMulai = sdf.parse(getGuide.getTgl_mulai());
+                Date dateAkhir = sdf.parse(getGuide.getTgl_akhir());
+                int days = Days.daysBetween(new LocalDate(dateMulai), new LocalDate(dateAkhir)).getDays();
+                holder.tvTanggal.setText(String.valueOf(days) + " Hari Lagi");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -84,7 +109,7 @@ public class AdapterGuide extends RecyclerView.Adapter<AdapterGuide.Holder> {
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView tvNama, tvUmur, tvAgama, tvBahasa, tvKelamin, tvKontak, tvLokasi, tvjmhGuide, tvNamaWisatawan;
+        private TextView tvNama, tvUmur, tvAgama, tvBahasa, tvKelamin, tvKontak, tvLokasi, tvjmhGuide, tvNamaWisatawan, tvTanggal;
         private RatingBar rating;
         private CircleImageView ivFoto, ivFotoWisatawan;
         private LinearLayout llContainerBoking, containerA, containerB, containerC;
@@ -101,6 +126,7 @@ public class AdapterGuide extends RecyclerView.Adapter<AdapterGuide.Holder> {
             rating = itemView.findViewById(R.id.rating);
             ivFoto = itemView.findViewById(R.id.ivFoto);
             tvjmhGuide = itemView.findViewById(R.id.tv_jmhGuide);
+            tvTanggal = itemView.findViewById(R.id.tvTanggal);
             llContainerBoking = itemView.findViewById(R.id.llContainerBoking);
             ivFotoWisatawan = itemView.findViewById(R.id.ivFotoWisatawan);
             tvNamaWisatawan = itemView.findViewById(R.id.tvNamaWisatawan);

@@ -171,6 +171,7 @@ public class BoWisatawanActivity extends AppCompatActivity {
         intent.putExtra("jk", jk);
         intent.putExtra("foto", foto);
         intent.putExtra("agama", agama);
+        intent.putExtra("id_guide", getIntent().getIntExtra("id_guide", 0));
         startActivity(intent);
     }
 

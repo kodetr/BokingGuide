@@ -223,8 +223,8 @@ public class ViewGuideActivity extends AppCompatActivity implements
                         startActivity(intent);
                         break;
                     case 1:
-
                         Intent intent1 = new Intent(ViewGuideActivity.this, BoWisatawanActivity.class);
+                        intent1.putExtra("id_guide",selectGuide.getId());
                         intent1.putExtra("nama_guide",selectGuide.getNama());
                         startActivity(intent1);
                         break;
