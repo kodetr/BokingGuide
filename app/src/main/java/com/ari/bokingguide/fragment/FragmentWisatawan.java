@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ari.bokingguide.R;
+import com.ari.bokingguide.ViewDestinasiActivity;
 import com.ari.bokingguide.adapter.AdapterAdminWisatawan;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
@@ -98,7 +99,11 @@ public class FragmentWisatawan extends Fragment implements
                                      wisatawanList = response.body();
                                      for (int i = 0; i < wisatawanList.size(); i++) {
                                          wisatawan = wisatawanList.get(i);
-                                         adapterAdminWisatawan.addWisatawan(wisatawan);
+                                         if (wisatawan.isPesan()) {
+                                             Toast.makeText(getContext(), "Belum ada aktifitas", Toast.LENGTH_SHORT).show();
+                                         } else {
+                                             adapterAdminWisatawan.addWisatawan(wisatawan);
+                                         }
                                      }
                                      swipeRefreshLayout.setRefreshing(false);
                                  }

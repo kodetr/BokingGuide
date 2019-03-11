@@ -15,11 +15,12 @@ public class Guide {
     private int jmh_rating;
     private String jmh_num;
     private int tag;
-    private String pesan;
+    private boolean pesan;
 
     private String nama_wisatawan;
     private String tgl_mulai;
     private String tgl_akhir;
+    private String time_now;
 
     public int getId() {
         return id;
@@ -77,7 +78,7 @@ public class Guide {
         return tag;
     }
 
-    public String getPesan() {
+    public boolean isPesan() {
         return pesan;
     }
 
@@ -91,5 +92,9 @@ public class Guide {
 
     public String getTgl_akhir() {
         return tgl_akhir;
+    }
+
+    public String getTime_now() {
+        return time_now;
     }
 }

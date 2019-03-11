@@ -108,7 +108,11 @@ public class FragmentGuide extends Fragment implements
                                      guideList = response.body();
                                      for (int i = 0; i < guideList.size(); i++) {
                                          guide = guideList.get(i);
-                                         adapterAdminGuide.addGuide(guide);
+                                         if (guide.isPesan()) {
+                                             Toast.makeText(getContext(), "Belum ada aktifitas", Toast.LENGTH_SHORT).show();
+                                         } else {
+                                             adapterAdminGuide.addGuide(guide);
+                                         }
                                      }
                                      swipeRefreshLayout.setRefreshing(false);
                                  }

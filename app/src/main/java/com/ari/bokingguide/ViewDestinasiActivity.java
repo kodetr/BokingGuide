@@ -107,7 +107,11 @@ public class ViewDestinasiActivity extends AppCompatActivity implements
                                      destinasiList = response.body();
                                      for (int i = 0; i < destinasiList.size(); i++) {
                                          destinasi = destinasiList.get(i);
-                                         adapterAdminDestinasi.addDestinasi(destinasi);
+                                         if (destinasi.isPesan()) {
+                                             Toast.makeText(ViewDestinasiActivity.this, "Belum ada aktifitas", Toast.LENGTH_SHORT).show();
+                                         } else {
+                                             adapterAdminDestinasi.addDestinasi(destinasi);
+                                         }
                                      }
                                      swipeRefreshLayout.setRefreshing(false);
                                  }

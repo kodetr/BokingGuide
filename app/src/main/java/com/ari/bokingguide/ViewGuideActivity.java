@@ -106,7 +106,11 @@ public class ViewGuideActivity extends AppCompatActivity implements
                                      guideList = response.body();
                                      for (int i = 0; i < guideList.size(); i++) {
                                          guide = guideList.get(i);
-                                         adapterGuide.addGuide(guide);
+                                         if(guide.isPesan()) {
+                                             Toast.makeText(ViewGuideActivity.this, "Belum ada aktifitas", Toast.LENGTH_SHORT).show();
+                                         }else{
+                                             adapterGuide.addGuide(guide);
+                                         }
                                      }
                                      swipeRefreshLayout.setRefreshing(false);
                                  }

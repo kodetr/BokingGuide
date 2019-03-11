@@ -66,7 +66,7 @@ public class AdapterAdminWisatawan extends RecyclerView.Adapter<AdapterAdminWisa
         holder.tvBiaya.setText(getWisatawan.getBiaya());
 
         try {
-            Date dateMulai = sdf.parse(getWisatawan.getTgl_mulai());
+            Date dateMulai = sdf.parse(getWisatawan.getTime_now());
             Date dateAkhir = sdf.parse(getWisatawan.getTgl_akhir());
             int days = Days.daysBetween(new LocalDate(dateMulai), new LocalDate(dateAkhir)).getDays();
             holder.tvBatasWaktu.setText(String.valueOf(days) + " Hari Lagi");

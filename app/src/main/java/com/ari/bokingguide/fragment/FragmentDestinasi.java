@@ -24,8 +24,6 @@ import com.ari.bokingguide.AddDestinasiActivity;
 import com.ari.bokingguide.R;
 import com.ari.bokingguide.UploadDestinasiActivity;
 import com.ari.bokingguide.UploadVidioDestinasiActivity;
-import com.ari.bokingguide.UploadVidioGuideActivity;
-import com.ari.bokingguide.UploadWisatawanActivity;
 import com.ari.bokingguide.adapter.AdapterAdminDestinasi;
 import com.ari.bokingguide.network.DataProvider;
 import com.ari.bokingguide.network.DataService;
@@ -124,8 +122,8 @@ public class FragmentDestinasi extends Fragment implements
                                      destinasiList = response.body();
                                      for (int i = 0; i < destinasiList.size(); i++) {
                                          destinasi = destinasiList.get(i);
-                                         if (destinasi.getPesan()) {
-                                             Toast.makeText(getContext(), "Data belum ada!", Toast.LENGTH_SHORT).show();
+                                         if (destinasi.isPesan()) {
+                                             Toast.makeText(getContext(), "Belum ada aktifitas", Toast.LENGTH_SHORT).show();
                                          } else {
                                              adapterAdminDestinasi.addDestinasi(destinasi);
                                          }

@@ -88,7 +88,7 @@ public class AdapterGuide extends RecyclerView.Adapter<AdapterGuide.Holder> {
             holder.tvNamaWisatawan.setText(getGuide.getNama_wisatawan());
             try {
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-                Date dateMulai = sdf.parse(getGuide.getTgl_mulai());
+                Date dateMulai = sdf.parse(getGuide.getTime_now());
                 Date dateAkhir = sdf.parse(getGuide.getTgl_akhir());
                 int days = Days.daysBetween(new LocalDate(dateMulai), new LocalDate(dateAkhir)).getDays();
                 holder.tvTanggal.setText(String.valueOf(days) + " Hari Lagi");

@@ -69,7 +69,7 @@ public class AdapterAdminDestinasi extends RecyclerView.Adapter<AdapterAdminDest
         private TextView tvNama, tvLokasi, tvKeterangan;
         private ImageView ivImage;
 
-        public Holder(View itemView) {
+        Holder(View itemView) {
             super(itemView);
             tvNama = itemView.findViewById(R.id.tvNama);
             tvLokasi = itemView.findViewById(R.id.tvLokasi);

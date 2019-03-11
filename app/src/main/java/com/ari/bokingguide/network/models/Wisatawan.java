@@ -12,10 +12,11 @@ public class Wisatawan {
     private String nama_guide;
     private String tgl_mulai;
     private String tgl_akhir;
+    private String time_now;
     private String tujuan_wisata;
     private String biaya;
     private int status;
-    private String pesan;
+    private boolean pesan;
     private int id_guide;
 
     public int getId() {
@@ -50,7 +51,7 @@ public class Wisatawan {
         return foto;
     }
 
-    public String getPesan() {
+    public boolean isPesan() {
         return pesan;
     }
 
@@ -80,5 +81,9 @@ public class Wisatawan {
 
     public int getId_guide() {
         return id_guide;
+    }
+
+    public String getTime_now() {
+        return time_now;
     }
 }

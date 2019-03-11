@@ -66,8 +66,7 @@ public class Destinasi {
         this.vidio = vidio;
     }
 
-    public boolean getPesan() {
+    public boolean isPesan() {
         return pesan;
     }
-
 }
